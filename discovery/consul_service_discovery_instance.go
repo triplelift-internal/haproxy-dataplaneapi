@@ -171,6 +171,7 @@ func (c *consulInstance) updateServices() error {
 	return c.discoveryConfig.UpdateServices(services)
 }
 
+// todo: Add function to standardize the conversion of DNS SRV Weights to Haproxy ServerWeights standard
 func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration.ServiceServer {
 	servers := make([]configuration.ServiceServer, 0)
 	for _, node := range nodes {
@@ -178,7 +179,7 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 			continue
 		}
 		var weight *int64
-		if node.Service.Weights != nil && node.Service.Weights.Passing > 0 {
+		if node.Service.Weights != nil && node.Service.Weights.Passing > 1 { // In Consul Weight of 1 is a failing node
 			weightVal := int64(node.Service.Weights.Passing)
 			weight = &weightVal
 		}
@@ -186,14 +187,14 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 			servers = append(servers, configuration.ServiceServer{
 				Address: node.Service.Address,
 				Port:    node.Service.Port,
-				// Need to set ServerWeight via the Haproxy Go Client Interface Here
+				// Need to allow ServerWeight to be set via the modified Haproxy Native Go Client Interface
 				Weight: weight,
 			})
 		} else {
 			servers = append(servers, configuration.ServiceServer{
 				Address: node.Node.Address,
 				Port:    node.Service.Port,
-				// Need to set ServerWeight via the Haproxy Go Client Interface Here
+				// Need to allow ServerWeight to be set via the modified Haproxy Native Go Client Interface
 				Weight: weight,
 			})
 		}
