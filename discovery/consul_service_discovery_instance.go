@@ -179,7 +179,8 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 			continue
 		}
 		var weight *int64
-		if node.Service.Weights != nil && node.Service.Weights.Passing > 1 { // In Consul Weight of 1 is a failing node
+		// In Consul a weight of 1 is a failing node, and 255 is an upper limit of the value HAProxy takes.
+		if node.Service.Weights != nil && node.Service.Weights.Passing > 1 && node.Service.Weights.Passing <= 255 {
 			weightVal := int64(node.Service.Weights.Passing)
 			weight = &weightVal
 		}
