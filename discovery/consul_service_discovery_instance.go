@@ -186,14 +186,14 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 			servers = append(servers, configuration.ServiceServer{
 				Address: node.Service.Address,
 				Port:    node.Service.Port,
-				// Need to se ServerWeight via the Haproxy Go Client Interface Here
+				// Need to set ServerWeight via the Haproxy Go Client Interface Here
 				Weight: weight,
 			})
 		} else {
 			servers = append(servers, configuration.ServiceServer{
 				Address: node.Node.Address,
 				Port:    node.Service.Port,
-				// Need to se ServerWeight via the Haproxy Go Client Interface Here
+				// Need to set ServerWeight via the Haproxy Go Client Interface Here
 				Weight: weight,
 			})
 		}
