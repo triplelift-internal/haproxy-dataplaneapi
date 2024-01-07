@@ -177,15 +177,24 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 		if !c.validateHealthChecks(node) {
 			continue
 		}
+		var weight *int64
+		if node.Service.Weights != nil && node.Service.Weights.Passing > 0 {
+			weightVal := int64(node.Service.Weights.Passing)
+			weight = &weightVal
+		}
 		if node.Service.Address != "" {
 			servers = append(servers, configuration.ServiceServer{
 				Address: node.Service.Address,
 				Port:    node.Service.Port,
+				// Need to se ServerWeight via the Haproxy Go Client Interface Here
+				Weight: weight,
 			})
 		} else {
 			servers = append(servers, configuration.ServiceServer{
 				Address: node.Node.Address,
 				Port:    node.Service.Port,
+				// Need to se ServerWeight via the Haproxy Go Client Interface Here
+				Weight: weight,
 			})
 		}
 	}
@@ -390,6 +399,10 @@ type serviceEntry struct {
 	Service *struct {
 		Address string
 		Port    int
+		Weights *struct {
+			Passing int
+			Warning int
+		} // Pull weight from Consul Service Discovery
 	}
 	Checks []*struct {
 		Status string
