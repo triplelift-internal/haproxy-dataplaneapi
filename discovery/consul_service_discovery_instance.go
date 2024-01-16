@@ -71,7 +71,7 @@ type consulInstance struct {
 }
 
 func (c *consulInstance) start() error {
-	c.logDebug("discovery job starting")
+	c.logDebug("Consul discovery job starting")
 	if err := c.setAPIClient(); err != nil {
 		return err
 	}
@@ -81,6 +81,7 @@ func (c *consulInstance) start() error {
 }
 
 func (c *consulInstance) setAPIClient() error {
+	c.logDebug("Setting up the Consul API client")
 	c.httpClient = &http.Client{
 		Timeout: time.Minute,
 	}
@@ -97,7 +98,7 @@ func (c *consulInstance) watch() {
 			if !ok {
 				return
 			}
-			c.logDebug("discovery job update triggered")
+			c.logDebug("Consul discovery job update triggered")
 			if err := c.setAPIClient(); err != nil {
 				c.logErrorf("error while setting up the API client: %s", err.Error())
 				c.stop()
@@ -118,25 +119,26 @@ func (c *consulInstance) watch() {
 		case <-c.ctx.Done():
 			c.stop()
 		case <-watchTimer.C:
-			c.logDebug("discovery job reconciliation started")
+			c.logDebug("Consul discovery job reconciliation started")
 			if err := c.updateServices(); err != nil {
-				// c.log.Errorf("error while updating service: %w", err)
+				c.logErrorf("error while updating service: %s", err.Error())
 				c.stop()
 			}
-			c.logDebug("discovery job reconciliation completed")
+			c.logDebug("Consul discovery job reconciliation completed")
 			watchTimer.Reset(c.timeout)
 		}
 	}
 }
 
 func (c *consulInstance) stop() {
-	c.logDebug("discovery job stopping")
+	c.logDebug("Consul discovery job stopping")
 	c.httpClient = nil
 	c.prevEnabled = false
 	close(c.update)
 }
 
 func (c *consulInstance) updateServices() error {
+	c.logDebug("Updating services in Consul discovery")
 	services := make([]ServiceInstance, 0)
 	params := &queryParams{}
 	if c.params.Namespace != "" {
@@ -171,8 +173,8 @@ func (c *consulInstance) updateServices() error {
 	return c.discoveryConfig.UpdateServices(services)
 }
 
-// todo: Add function to standardize the conversion of DNS SRV Weights to Haproxy ServerWeights standard
 func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration.ServiceServer {
+	c.logDebug("Converting nodes to servers in Consul discovery")
 	servers := make([]configuration.ServiceServer, 0)
 	for _, node := range nodes {
 		if !c.validateHealthChecks(node) {
@@ -188,18 +190,19 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 			servers = append(servers, configuration.ServiceServer{
 				Address: node.Service.Address,
 				Port:    node.Service.Port,
-				// Need to allow ServerWeight to be set via the modified Haproxy Native Go Client Interface
+				// Allow ServerWeight to be set via the modified Haproxy Native Go Client Interface
 				Weight: weight,
 			})
 		} else {
 			servers = append(servers, configuration.ServiceServer{
 				Address: node.Node.Address,
 				Port:    node.Service.Port,
-				// Need to allow ServerWeight to be set via the modified Haproxy Native Go Client Interface
+				// Allow ServerWeight to be set via the modified Haproxy Native Go Client Interface
 				Weight: weight,
 			})
 		}
 	}
+	c.logDebug(fmt.Sprintf("Converted nodes to servers: %v", servers))
 	return servers
 }
 
