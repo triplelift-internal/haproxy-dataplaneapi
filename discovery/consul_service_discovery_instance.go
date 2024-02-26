@@ -18,6 +18,7 @@ package discovery
 import (
 	"context"
 	"fmt"
+	dataplaneapi_config "github.com/haproxytech/dataplaneapi/configuration"
 	"io"
 	"net"
 	"net/http"
@@ -29,7 +30,6 @@ import (
 	"github.com/haproxytech/client-native/v5/models"
 	"github.com/haproxytech/dataplaneapi/log"
 
-	dataplaneapi_config "github.com/haproxytech/dataplaneapi/configuration"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -177,6 +177,7 @@ func (c *consulInstance) updateServices() error {
 
 func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration.ServiceServer {
 	cfg := dataplaneapi_config.Get()
+	cfg.Load()
 	haproxyOptions := cfg.HAProxy
 
 	// Log the HAProxy configured AWS Availability Zone
