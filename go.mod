@@ -23,7 +23,7 @@ require (
 	github.com/google/renameio v1.0.1
 	github.com/google/uuid v1.6.0
 	github.com/haproxytech/client-native/v5 v5.1.2
-	github.com/haproxytech/config-parser/v5 v5.1.0
+	github.com/haproxytech/config-parser/v5 v5.1.1-0.20240221073837-5b782186def2
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/json-iterator/go v1.1.12
 	github.com/kr/pretty v0.3.1
@@ -33,6 +33,7 @@ require (
 	github.com/rs/cors v1.10.1
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/sirupsen/logrus v1.9.3
+	github.com/stretchr/testify v1.8.4
 	golang.org/x/net v0.21.0
 	golang.org/x/sys v0.17.0
 	gopkg.in/yaml.v2 v2.4.0
@@ -82,4 +83,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/haproxytech/client-native/v5 => github.com/triplelift-internal/haproxy-client-native/v5 v5.1.1-triplelift-7
+replace github.com/haproxytech/client-native/v5 => github.com/triplelift-internal/haproxy-client-native/v5 v5.1.3-triplelift-1

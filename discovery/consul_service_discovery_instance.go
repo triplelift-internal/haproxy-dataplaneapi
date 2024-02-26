@@ -28,6 +28,8 @@ import (
 	"github.com/haproxytech/client-native/v5/configuration"
 	"github.com/haproxytech/client-native/v5/models"
 	"github.com/haproxytech/dataplaneapi/log"
+
+	dataplaneapi_config "github.com/haproxytech/dataplaneapi/configuration"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -174,11 +176,18 @@ func (c *consulInstance) updateServices() error {
 }
 
 func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration.ServiceServer {
+	cfg := dataplaneapi_config.Get()
+	haproxyOptions := cfg.HAProxy
+
 	c.logDebug("Converting nodes to servers in Consul discovery")
 	servers := make([]configuration.ServiceServer, 0)
 	for _, node := range nodes {
 		if !c.validateHealthChecks(node) {
 			continue
+		}
+		var backup = "disabled"
+		if haproxyOptions.AWSAvailabilityZone != node.NodeMeta.AvailabilityZone {
+			backup = "enabled"
 		}
 		var weight *int64
 		// In Consul a weight of 1 is a failing node, and 255 is an upper limit of the value HAProxy takes.
@@ -188,17 +197,21 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 		}
 		if node.Service.Address != "" {
 			servers = append(servers, configuration.ServiceServer{
+				Name:    node.NodeMeta.InstanceID,
 				Address: node.Service.Address,
 				Port:    node.Service.Port,
-				// Allow ServerWeight to be set via the modified Haproxy Native Go Client Interface
+				// Allow ServerWeight and Backup to be set via the modified Haproxy Native Go Client Interface
 				Weight: weight,
+				Backup: backup,
 			})
 		} else {
 			servers = append(servers, configuration.ServiceServer{
+				Name:    node.NodeMeta.InstanceID,
 				Address: node.Node.Address,
 				Port:    node.Service.Port,
-				// Allow ServerWeight to be set via the modified Haproxy Native Go Client Interface
+				// Allow ServerWeight and Backup  to be set via the modified Haproxy Native Go Client Interface
 				Weight: weight,
+				Backup: backup,
 			})
 		}
 	}
@@ -400,6 +413,10 @@ func (c *consulInstance) doConsulQuery(method string, path string, params *query
 type serviceEntry struct {
 	Node *struct {
 		Address string
+	}
+	NodeMeta *struct {
+		AvailabilityZone string `json:"availability-zone"`
+		InstanceID       string `json:"instance-id"`
 	}
 	Service *struct {
 		Address string

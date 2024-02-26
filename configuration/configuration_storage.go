@@ -24,29 +24,30 @@ import (
 )
 
 type configTypeDataplaneapi struct {
-	WriteTimeout     *string                `yaml:"write_timeout,omitempty"`
-	GracefulTimeout  *string                `yaml:"graceful_timeout,omitempty"`
-	ShowSystemInfo   *bool                  `yaml:"show_system_info,omitempty"`
-	MaxHeaderSize    *string                `yaml:"max_header_size,omitempty"`
-	SocketPath       *flags.Filename        `yaml:"socket_path,omitempty"`
-	DebugSocketPath  *string                `yaml:"debug_socket_path,omitempty"`
-	Host             *string                `yaml:"host,omitempty"`
-	Port             *int                   `yaml:"port,omitempty"`
-	ListenLimit      *int                   `yaml:"listen_limit,omitempty"`
-	DisableInotify   *bool                  `yaml:"disable_inotify,omitempty"`
-	ReadTimeout      *string                `yaml:"read_timeout,omitempty"`
-	Advertised       *configTypeAdvertised  `yaml:"advertised,omitempty"`
-	CleanupTimeout   *string                `yaml:"cleanup_timeout,omitempty"`
-	KeepAlive        *string                `yaml:"keep_alive,omitempty"`
-	PIDFile          *string                `yaml:"pid_file,omitempty"`
-	UID              *int                   `yaml:"uid,omitempty"`
-	GID              *int                   `yaml:"gid,omitempty"`
-	TLS              *configTypeTLS         `yaml:"tls,omitempty"`
-	EnabledListeners *[]string              `yaml:"scheme,omitempty"`
-	Userlist         *configTypeUserlist    `yaml:"userlist,omitempty"`
-	Transaction      *configTypeTransaction `yaml:"transaction,omitempty"`
-	Resources        *configTypeResources   `yaml:"resources,omitempty"`
-	User             []configTypeUser       `yaml:"user,omitempty"`
+	WriteTimeout        *string                `yaml:"write_timeout,omitempty"`
+	GracefulTimeout     *string                `yaml:"graceful_timeout,omitempty"`
+	ShowSystemInfo      *bool                  `yaml:"show_system_info,omitempty"`
+	MaxHeaderSize       *string                `yaml:"max_header_size,omitempty"`
+	SocketPath          *flags.Filename        `yaml:"socket_path,omitempty"`
+	DebugSocketPath     *string                `yaml:"debug_socket_path,omitempty"`
+	Host                *string                `yaml:"host,omitempty"`
+	Port                *int                   `yaml:"port,omitempty"`
+	ListenLimit         *int                   `yaml:"listen_limit,omitempty"`
+	DisableInotify      *bool                  `yaml:"disable_inotify,omitempty"`
+	ReadTimeout         *string                `yaml:"read_timeout,omitempty"`
+	Advertised          *configTypeAdvertised  `yaml:"advertised,omitempty"`
+	CleanupTimeout      *string                `yaml:"cleanup_timeout,omitempty"`
+	KeepAlive           *string                `yaml:"keep_alive,omitempty"`
+	PIDFile             *string                `yaml:"pid_file,omitempty"`
+	UID                 *int                   `yaml:"uid,omitempty"`
+	GID                 *int                   `yaml:"gid,omitempty"`
+	TLS                 *configTypeTLS         `yaml:"tls,omitempty"`
+	EnabledListeners    *[]string              `yaml:"scheme,omitempty"`
+	Userlist            *configTypeUserlist    `yaml:"userlist,omitempty"`
+	Transaction         *configTypeTransaction `yaml:"transaction,omitempty"`
+	Resources           *configTypeResources   `yaml:"resources,omitempty"`
+	User                []configTypeUser       `yaml:"user,omitempty"`
+	AWSAvailabilityZone *string                `yaml:"aws_availability_zone,omitempty"`
 }
 
 type configTypeTLS struct {
@@ -195,6 +196,9 @@ func copyToConfiguration(cfg *Configuration) { //nolint:cyclop,maintidx
 	}
 	if cfgStorage.Dataplaneapi != nil && cfgStorage.Dataplaneapi.DebugSocketPath != nil && !misc.HasOSArg("", "debug-socket-path", "") {
 		cfg.HAProxy.DebugSocketPath = *cfgStorage.Dataplaneapi.DebugSocketPath
+	}
+	if cfgStorage.Dataplaneapi != nil && cfgStorage.Dataplaneapi.AWSAvailabilityZone != nil && !misc.HasOSArg("aws-az", "aws-availability-zone", "") {
+		cfg.HAProxy.AWSAvailabilityZone = *cfgStorage.Dataplaneapi.AWSAvailabilityZone
 	}
 	if cfgStorage.Dataplaneapi != nil && cfgStorage.Dataplaneapi.UID != nil && !misc.HasOSArg("", "uid", "") {
 		cfg.HAProxy.UID = *cfgStorage.Dataplaneapi.UID
