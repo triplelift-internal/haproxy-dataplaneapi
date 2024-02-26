@@ -179,6 +179,9 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 	cfg := dataplaneapi_config.Get()
 	haproxyOptions := cfg.HAProxy
 
+	// Log the HAProxy configured AWS Availability Zone
+	c.logDebug(fmt.Sprintf("HAProxy AWSAvailabilityZone: %s", haproxyOptions.AWSAvailabilityZone))
+
 	c.logDebug("Converting nodes to servers in Consul discovery")
 	servers := make([]configuration.ServiceServer, 0)
 	for _, node := range nodes {
@@ -186,14 +189,19 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 			continue
 		}
 		var backup = "disabled"
+		// Log the node's Availability Zone
+		c.logDebug(fmt.Sprintf("Node AvailabilityZone: %s, InstanceID: %s", node.NodeMeta.AvailabilityZone, node.NodeMeta.InstanceID))
+		// If the node's Availability Zone does not match the HAProxy configured AWS Availability Zone, mark the node as backup
 		if haproxyOptions.AWSAvailabilityZone != node.NodeMeta.AvailabilityZone {
 			backup = "enabled"
+			c.logDebug(fmt.Sprintf("Node marked as backup due to AZ mismatch: %s", node.NodeMeta.InstanceID))
 		}
 		var weight *int64
 		// In Consul a weight of 1 is a failing node, and 255 is an upper limit of the value HAProxy takes.
 		if node.Service.Weights != nil && node.Service.Weights.Passing > 1 && node.Service.Weights.Passing <= 255 {
 			weightVal := int64(node.Service.Weights.Passing)
 			weight = &weightVal
+			c.logDebug(fmt.Sprintf("Weight assigned to node: %s, weight: %d", node.NodeMeta.InstanceID, weightVal))
 		}
 		if node.Service.Address != "" {
 			servers = append(servers, configuration.ServiceServer{
