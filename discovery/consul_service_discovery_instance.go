@@ -226,6 +226,9 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 		if activeAZ != node.Node.Meta.AvailabilityZone {
 			backup = "enabled"
 			c.logDebug(fmt.Sprintf("Node marked as backup due to AZ mismatch: %s", node.Node.Meta.InstanceID))
+		} else {
+			backup = "disabled"
+			c.logDebug(fmt.Sprintf("Node marked as active due to AZ matching: %s", node.Node.Meta.InstanceID))
 		}
 		var weight *int64
 		// In Consul a weight of 1 is a failing node, and 255 is an upper limit of the value HAProxy takes.
