@@ -18,7 +18,6 @@ package discovery
 import (
 	"context"
 	"fmt"
-	dataplaneapi_config "github.com/haproxytech/dataplaneapi/configuration"
 	"io"
 	"net"
 	"net/http"
@@ -30,6 +29,7 @@ import (
 	"github.com/haproxytech/client-native/v5/models"
 	"github.com/haproxytech/dataplaneapi/log"
 
+	dataplaneapi_config "github.com/haproxytech/dataplaneapi/configuration"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -70,6 +70,7 @@ type consulInstance struct {
 	logFields       map[string]interface{}
 	timeout         time.Duration
 	prevEnabled     bool
+	haproxyOptions  *dataplaneapi_config.HAProxyConfiguration
 }
 
 func (c *consulInstance) start() error {
@@ -176,16 +177,20 @@ func (c *consulInstance) updateServices() error {
 }
 
 func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration.ServiceServer {
-	cfg := dataplaneapi_config.Get()
-	cfg.Load()
-	haproxyOptions := cfg.HAProxy
 
+	activeAZ := c.haproxyOptions.AWSAvailabilityZone
 	// Log the HAProxy configured AWS Availability Zone
-	c.logDebug(fmt.Sprintf("HAProxy AWSAvailabilityZone: %s", haproxyOptions.AWSAvailabilityZone))
+	c.logDebug(fmt.Sprintf("HAProxy AWSAvailabilityZone: %s", activeAZ))
 
 	c.logDebug("Converting nodes to servers in Consul discovery")
 	servers := make([]configuration.ServiceServer, 0)
 	for _, node := range nodes {
+
+		if node == nil || node.NodeMeta == nil || node.Service == nil {
+			c.logErrorf("Skipping a node due to missing data: %+v", node)
+			continue
+		}
+
 		if !c.validateHealthChecks(node) {
 			continue
 		}
@@ -193,7 +198,7 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 		// Log the node's Availability Zone
 		c.logDebug(fmt.Sprintf("Node AvailabilityZone: %s, InstanceID: %s", node.NodeMeta.AvailabilityZone, node.NodeMeta.InstanceID))
 		// If the node's Availability Zone does not match the HAProxy configured AWS Availability Zone, mark the node as backup
-		if haproxyOptions.AWSAvailabilityZone != node.NodeMeta.AvailabilityZone {
+		if activeAZ != node.NodeMeta.AvailabilityZone {
 			backup = "enabled"
 			c.logDebug(fmt.Sprintf("Node marked as backup due to AZ mismatch: %s", node.NodeMeta.InstanceID))
 		}
