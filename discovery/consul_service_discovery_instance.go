@@ -178,7 +178,20 @@ func (c *consulInstance) updateServices() error {
 
 func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration.ServiceServer {
 
+	// Check if haproxyOptions is initialized
+	if c.haproxyOptions == nil {
+		c.logErrorf("haproxyOptions is nil")
+		return nil // Return or handle error appropriately
+	}
+
 	activeAZ := c.haproxyOptions.AWSAvailabilityZone
+
+	// Check if AWSAvailabilityZone is properly set
+	if activeAZ == "" {
+		c.logErrorf("AWSAvailabilityZone is not set in haproxyOptions")
+		return nil // Return or handle error appropriately
+	}
+
 	// Log the HAProxy configured AWS Availability Zone
 	c.logDebug(fmt.Sprintf("HAProxy AWSAvailabilityZone: %s", activeAZ))
 
