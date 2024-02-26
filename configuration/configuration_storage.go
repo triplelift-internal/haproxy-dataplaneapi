@@ -197,7 +197,7 @@ func copyToConfiguration(cfg *Configuration) { //nolint:cyclop,maintidx
 	if cfgStorage.Dataplaneapi != nil && cfgStorage.Dataplaneapi.DebugSocketPath != nil && !misc.HasOSArg("", "debug-socket-path", "") {
 		cfg.HAProxy.DebugSocketPath = *cfgStorage.Dataplaneapi.DebugSocketPath
 	}
-	if cfgStorage.Dataplaneapi != nil && cfgStorage.Dataplaneapi.AWSAvailabilityZone != nil && !misc.HasOSArg("aws-az", "aws-availability-zone", "") {
+	if cfgStorage.Dataplaneapi != nil && cfgStorage.Dataplaneapi.AWSAvailabilityZone != nil && !misc.HasOSArg("a", "aws-availability-zone", "") {
 		cfg.HAProxy.AWSAvailabilityZone = *cfgStorage.Dataplaneapi.AWSAvailabilityZone
 	}
 	if cfgStorage.Dataplaneapi != nil && cfgStorage.Dataplaneapi.UID != nil && !misc.HasOSArg("", "uid", "") {

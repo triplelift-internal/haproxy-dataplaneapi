@@ -68,7 +68,7 @@ type HAProxyConfiguration struct {
 	MasterWorkerMode     bool   `long:"master-worker-mode" description:"Flag to enable helpers when running within HAProxy" group:"haproxy"`
 	DisableInotify       bool   `long:"disable-inotify" description:"Disables inotify watcher for the configuration file" group:"dataplaneapi"`
 	DebugSocketPath      string `long:"debug-socket-path" description:"Unix socket path for the debugging command socket" group:"dataplaneapi"`
-	AWSAvailabilityZone  string `short:"aws-az" long:"aws-availability-zone" description:"AWS Availability Zone" group:"dataplaneapi"`
+	AWSAvailabilityZone  string `short:"a" long:"aws-availability-zone" description:"AWS Availability Zone" group:"dataplaneapi"`
 }
 
 type User struct {
