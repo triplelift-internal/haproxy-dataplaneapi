@@ -75,6 +75,18 @@ type consulInstance struct {
 
 func (c *consulInstance) start() error {
 	c.logDebug("Consul discovery job starting")
+
+	// Load HAProxy configuration
+	cfg := dataplaneapi_config.Get()
+	err := cfg.Load()
+	if err != nil {
+		c.logErrorf("Failed to load HAProxy configuration: %v", err)
+		return err
+	}
+	haproxyConfig := cfg.HAProxy
+	// Assign the loaded HAProxy configuration to haproxyOptions
+	c.haproxyOptions = &haproxyConfig
+
 	if err := c.setAPIClient(); err != nil {
 		return err
 	}
