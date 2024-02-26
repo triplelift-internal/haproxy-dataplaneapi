@@ -186,7 +186,7 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 	servers := make([]configuration.ServiceServer, 0)
 	for _, node := range nodes {
 
-		if node == nil || node.NodeMeta == nil || node.Service == nil {
+		if node == nil || node.Node.Meta == nil || node.Service == nil {
 			c.logErrorf("Skipping a node due to missing data: %+v", node)
 			continue
 		}
@@ -196,22 +196,22 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 		}
 		var backup = "disabled"
 		// Log the node's Availability Zone
-		c.logDebug(fmt.Sprintf("Node AvailabilityZone: %s, InstanceID: %s", node.NodeMeta.AvailabilityZone, node.NodeMeta.InstanceID))
+		c.logDebug(fmt.Sprintf("Node AvailabilityZone: %s, InstanceID: %s", node.Node.Meta.AvailabilityZone, node.Node.Meta.InstanceID))
 		// If the node's Availability Zone does not match the HAProxy configured AWS Availability Zone, mark the node as backup
-		if activeAZ != node.NodeMeta.AvailabilityZone {
+		if activeAZ != node.Node.Meta.AvailabilityZone {
 			backup = "enabled"
-			c.logDebug(fmt.Sprintf("Node marked as backup due to AZ mismatch: %s", node.NodeMeta.InstanceID))
+			c.logDebug(fmt.Sprintf("Node marked as backup due to AZ mismatch: %s", node.Node.Meta.InstanceID))
 		}
 		var weight *int64
 		// In Consul a weight of 1 is a failing node, and 255 is an upper limit of the value HAProxy takes.
 		if node.Service.Weights != nil && node.Service.Weights.Passing > 1 && node.Service.Weights.Passing <= 255 {
 			weightVal := int64(node.Service.Weights.Passing)
 			weight = &weightVal
-			c.logDebug(fmt.Sprintf("Weight assigned to node: %s, weight: %d", node.NodeMeta.InstanceID, weightVal))
+			c.logDebug(fmt.Sprintf("Weight assigned to node: %s, weight: %d", node.Node.Meta.InstanceID, weightVal))
 		}
 		if node.Service.Address != "" {
 			servers = append(servers, configuration.ServiceServer{
-				Name:    node.NodeMeta.InstanceID,
+				Name:    node.Node.Meta.InstanceID,
 				Address: node.Service.Address,
 				Port:    node.Service.Port,
 				// Allow ServerWeight and Backup to be set via the modified Haproxy Native Go Client Interface
@@ -220,7 +220,7 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 			})
 		} else {
 			servers = append(servers, configuration.ServiceServer{
-				Name:    node.NodeMeta.InstanceID,
+				Name:    node.Node.Meta.InstanceID,
 				Address: node.Node.Address,
 				Port:    node.Service.Port,
 				// Allow ServerWeight and Backup  to be set via the modified Haproxy Native Go Client Interface
@@ -427,10 +427,10 @@ func (c *consulInstance) doConsulQuery(method string, path string, params *query
 type serviceEntry struct {
 	Node *struct {
 		Address string
-	}
-	NodeMeta *struct {
-		AvailabilityZone string `json:"availability-zone"`
-		InstanceID       string `json:"instance-id"`
+		Meta    *struct {
+			AvailabilityZone string `json:"availability-zone"`
+			InstanceID       string `json:"instance-id"`
+		}
 	}
 	Service *struct {
 		Address string
