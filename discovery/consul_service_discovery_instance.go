@@ -70,10 +70,22 @@ type consulInstance struct {
 	logFields       map[string]interface{}
 	timeout         time.Duration
 	prevEnabled     bool
+	haproxyOptions  *dataplaneapi_config.HAProxyConfiguration
 }
 
 func (c *consulInstance) start() error {
 	c.logDebug("Consul discovery job starting")
+
+	// Load HAProxy configuration
+	cfg := dataplaneapi_config.Get()
+	err := cfg.Load()
+	if err != nil {
+		c.logErrorf("Failed to load HAProxy configuration: %v", err)
+		return err
+	}
+	haproxyConfig := cfg.HAProxy
+	// Assign the loaded HAProxy configuration to haproxyOptions
+	c.haproxyOptions = &haproxyConfig
 
 	if err := c.setAPIClient(); err != nil {
 		return err
@@ -178,16 +190,13 @@ func (c *consulInstance) updateServices() error {
 
 func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration.ServiceServer {
 
-	// Load HAProxy configuration
-	cfg := dataplaneapi_config.Get()
-	err := cfg.Load()
-	if err != nil {
-		c.logErrorf("Failed to load HAProxy configuration: %v", err)
+	// Check if haproxyOptions is initialized
+	if c.haproxyOptions == nil {
+		c.logErrorf("haproxyOptions is nil")
 		return nil // Return or handle error appropriately
 	}
 
-	// Directly use cfg.HAProxy for accessing the AWSAvailabilityZone
-	activeAZ := cfg.HAProxy.AWSAvailabilityZone
+	activeAZ := c.haproxyOptions.AWSAvailabilityZone
 
 	// Check if AWSAvailabilityZone is properly set
 	if activeAZ == "" {
