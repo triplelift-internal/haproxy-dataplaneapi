@@ -219,7 +219,7 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 		if !c.validateHealthChecks(node) {
 			continue
 		}
-		var backup = "disabled"
+		var backup = ""
 		// Log the node's Availability Zone
 		c.logDebug(fmt.Sprintf("Node AvailabilityZone: %s, InstanceID: %s", node.Node.Meta.AvailabilityZone, node.Node.Meta.InstanceID))
 		// If the node's Availability Zone does not match the HAProxy configured AWS Availability Zone, mark the node as backup
@@ -227,7 +227,6 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 			backup = "enabled"
 			c.logDebug(fmt.Sprintf("Node marked as backup due to AZ mismatch: %s", node.Node.Meta.InstanceID))
 		} else {
-			backup = "disabled"
 			c.logDebug(fmt.Sprintf("Node marked as active due to AZ matching: %s", node.Node.Meta.InstanceID))
 		}
 		var weight *int64
