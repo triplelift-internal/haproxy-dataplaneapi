@@ -238,7 +238,6 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 		}
 		if node.Service.Address != "" {
 			servers = append(servers, configuration.ServiceServer{
-				Name:    node.Node.Meta.InstanceID,
 				Address: node.Service.Address,
 				Port:    node.Service.Port,
 				// Allow ServerWeight and Backup to be set via the modified Haproxy Native Go Client Interface
@@ -247,7 +246,6 @@ func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration
 			})
 		} else {
 			servers = append(servers, configuration.ServiceServer{
-				Name:    node.Node.Meta.InstanceID,
 				Address: node.Node.Address,
 				Port:    node.Service.Port,
 				// Allow ServerWeight and Backup  to be set via the modified Haproxy Native Go Client Interface
