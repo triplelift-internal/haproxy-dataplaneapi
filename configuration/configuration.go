@@ -71,6 +71,7 @@ type HAProxyConfiguration struct {
 	DebugSocketPath      string        `long:"debug-socket-path" description:"Unix socket path for the debugging command socket" group:"dataplaneapi"`
 	DelayedStartMax      time.Duration `long:"delayed-start-max" description:"Maximum duration to wait for the haproxy runtime socket to be ready" default:"30s" group:"haproxy"`
 	DelayedStartTick     time.Duration `long:"delayed-start-tick" description:"Duration between checks for the haproxy runtime socket to be ready" default:"500ms" group:"haproxy"`
+  AWSAvailabilityZone  string        `short:"a" long:"aws-availability-zone" description:"AWS Availability Zone" group:"dataplaneapi"`
 }
 
 type User struct {

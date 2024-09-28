@@ -28,6 +28,8 @@ import (
 	"github.com/haproxytech/client-native/v6/configuration"
 	"github.com/haproxytech/client-native/v6/models"
 	"github.com/haproxytech/dataplaneapi/log"
+
+	dataplaneapi_config "github.com/haproxytech/dataplaneapi/configuration"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -68,10 +70,23 @@ type consulInstance struct {
 	logFields       map[string]interface{}
 	timeout         time.Duration
 	prevEnabled     bool
+	haproxyOptions  *dataplaneapi_config.HAProxyConfiguration
 }
 
 func (c *consulInstance) start() error {
-	c.logDebug("discovery job starting")
+	c.logDebug("Consul discovery job starting")
+
+	// Load HAProxy configuration
+	cfg := dataplaneapi_config.Get()
+	err := cfg.Load()
+	if err != nil {
+		c.logErrorf("Failed to load HAProxy configuration: %v", err)
+		return err
+	}
+	haproxyConfig := cfg.HAProxy
+	// Assign the loaded HAProxy configuration to haproxyOptions
+	c.haproxyOptions = &haproxyConfig
+
 	if err := c.setAPIClient(); err != nil {
 		return err
 	}
@@ -81,6 +96,7 @@ func (c *consulInstance) start() error {
 }
 
 func (c *consulInstance) setAPIClient() error {
+	c.logDebug("Setting up the Consul API client")
 	c.httpClient = &http.Client{
 		Timeout: time.Minute,
 	}
@@ -97,7 +113,7 @@ func (c *consulInstance) watch() {
 			if !ok {
 				return
 			}
-			c.logDebug("discovery job update triggered")
+			c.logDebug("Consul discovery job update triggered")
 			if err := c.setAPIClient(); err != nil {
 				c.logErrorf("error while setting up the API client: %s", err.Error())
 				c.stop()
@@ -118,25 +134,26 @@ func (c *consulInstance) watch() {
 		case <-c.ctx.Done():
 			c.stop()
 		case <-watchTimer.C:
-			c.logDebug("discovery job reconciliation started")
+			c.logDebug("Consul discovery job reconciliation started")
 			if err := c.updateServices(); err != nil {
-				// c.log.Errorf("error while updating service: %w", err)
+				c.logErrorf("error while updating service: %s", err.Error())
 				c.stop()
 			}
-			c.logDebug("discovery job reconciliation completed")
+			c.logDebug("Consul discovery job reconciliation completed")
 			watchTimer.Reset(c.timeout)
 		}
 	}
 }
 
 func (c *consulInstance) stop() {
-	c.logDebug("discovery job stopping")
+	c.logDebug("Consul discovery job stopping")
 	c.httpClient = nil
 	c.prevEnabled = false
 	close(c.update)
 }
 
 func (c *consulInstance) updateServices() error {
+	c.logDebug("Updating services in Consul discovery")
 	services := make([]ServiceInstance, 0)
 	params := &queryParams{}
 	if c.params.Namespace != "" {
@@ -172,23 +189,72 @@ func (c *consulInstance) updateServices() error {
 }
 
 func (c *consulInstance) convertToServers(nodes []*serviceEntry) []configuration.ServiceServer {
+
+	// Check if haproxyOptions is initialized
+	if c.haproxyOptions == nil {
+		c.logErrorf("haproxyOptions is nil")
+		return nil // Return or handle error appropriately
+	}
+
+	activeAZ := c.haproxyOptions.AWSAvailabilityZone
+
+	// Check if AWSAvailabilityZone is properly set
+	if activeAZ == "" {
+		c.logErrorf("AWSAvailabilityZone is not set in haproxyOptions")
+		return nil // Return or handle error appropriately
+	}
+
+	// Log the HAProxy configured AWS Availability Zone
+	c.logDebug(fmt.Sprintf("HAProxy AWSAvailabilityZone: %s", activeAZ))
+
+	c.logDebug("Converting nodes to servers in Consul discovery")
 	servers := make([]configuration.ServiceServer, 0)
 	for _, node := range nodes {
+
+		if node == nil || node.Node.Meta == nil || node.Service == nil {
+			c.logErrorf("Skipping a node due to missing data: %+v", node)
+			continue
+		}
+
 		if !c.validateHealthChecks(node) {
 			continue
+		}
+		var backup = ""
+		// Log the node's Availability Zone
+		c.logDebug(fmt.Sprintf("Node AvailabilityZone: %s, InstanceID: %s", node.Node.Meta.AvailabilityZone, node.Node.Meta.InstanceID))
+		// If the node's Availability Zone does not match the HAProxy configured AWS Availability Zone, mark the node as backup
+		if activeAZ != node.Node.Meta.AvailabilityZone {
+			backup = "enabled"
+			c.logDebug(fmt.Sprintf("Node marked as backup due to AZ mismatch: %s", node.Node.Meta.InstanceID))
+		} else {
+			c.logDebug(fmt.Sprintf("Node marked as active due to AZ matching: %s", node.Node.Meta.InstanceID))
+		}
+		var weight *int64
+		// In Consul a weight of 1 is a failing node, and 255 is an upper limit of the value HAProxy takes.
+		if node.Service.Weights != nil && node.Service.Weights.Passing > 1 && node.Service.Weights.Passing <= 255 {
+			weightVal := int64(node.Service.Weights.Passing)
+			weight = &weightVal
+			c.logDebug(fmt.Sprintf("Weight assigned to node: %s, weight: %d", node.Node.Meta.InstanceID, weightVal))
 		}
 		if node.Service.Address != "" {
 			servers = append(servers, configuration.ServiceServer{
 				Address: node.Service.Address,
 				Port:    node.Service.Port,
+				// Allow ServerWeight and Backup to be set via the modified Haproxy Native Go Client Interface
+				Weight: weight,
+				Backup: backup,
 			})
 		} else {
 			servers = append(servers, configuration.ServiceServer{
 				Address: node.Node.Address,
 				Port:    node.Service.Port,
+				// Allow ServerWeight and Backup  to be set via the modified Haproxy Native Go Client Interface
+				Weight: weight,
+				Backup: backup,
 			})
 		}
 	}
+	c.logDebug(fmt.Sprintf("Converted nodes to servers: %v", servers))
 	return servers
 }
 
@@ -386,10 +452,18 @@ func (c *consulInstance) doConsulQuery(method string, path string, params *query
 type serviceEntry struct {
 	Node *struct {
 		Address string
+		Meta    *struct {
+			AvailabilityZone string `json:"availability-zone"`
+			InstanceID       string `json:"instance-id"`
+		}
 	}
 	Service *struct {
 		Address string
 		Port    int
+		Weights *struct {
+			Passing int
+			Warning int
+		} // Pull weight from Consul Service Discovery
 	}
 	Checks []*struct {
 		Status string
