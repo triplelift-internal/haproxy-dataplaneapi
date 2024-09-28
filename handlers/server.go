@@ -18,11 +18,9 @@ package handlers
 import (
 	"errors"
 
-	"github.com/haproxytech/client-native/v6/runtime"
-
 	"github.com/go-openapi/runtime/middleware"
-	client_native "github.com/haproxytech/client-native/v6"
-	"github.com/haproxytech/client-native/v6/models"
+	client_native "github.com/haproxytech/client-native/v5"
+	"github.com/haproxytech/client-native/v5/models"
 
 	"github.com/haproxytech/dataplaneapi/haproxy"
 	"github.com/haproxytech/dataplaneapi/log"
@@ -110,28 +108,25 @@ func (h *CreateServerHandlerImpl) Handle(params server.CreateServerParams, princ
 		return server.NewCreateServerDefault(int(*e.Code)).WithPayload(e)
 	}
 
-	// Try to create the new server dynamically. This is only possible if parentType is `backend` and no `default_server`
+	// Try to create the new server dynamically. This is only possible if no `default_server`
 	// was defined in the current backend or in the `defaults` section.
 	useRuntime := false
-	ras := &models.RuntimeAddServer{}
-	var runtimeClient runtime.Runtime
-	if pType == "backend" {
-		_, defaults, errRuntime := configuration.GetDefaultsConfiguration(t)
-		if errRuntime != nil {
-			e := misc.HandleError(errRuntime)
-			return server.NewCreateServerDefault(int(*e.Code)).WithPayload(e)
-		}
-		_, backend, errRuntime := configuration.GetBackend(pName, t)
-		if errRuntime != nil {
-			e := misc.HandleError(errRuntime)
-			return server.NewCreateServerDefault(int(*e.Code)).WithPayload(e)
-		}
-		runtimeClient, errRuntime = h.Client.Runtime()
-		if errRuntime == nil && defaults.DefaultServer == nil && backend.DefaultServer == nil {
-			// Also make sure the server attributes are supported by the runtime API.
-			errRuntime = misc.ConvertStruct(params.Data, ras)
-			useRuntime = errRuntime == nil
-		}
+	var ras *models.RuntimeAddServer
+	_, defaults, err := configuration.GetDefaultsConfiguration(t)
+	if err != nil {
+		e := misc.HandleError(err)
+		return server.NewCreateServerDefault(int(*e.Code)).WithPayload(e)
+	}
+	_, backend, err := configuration.GetBackend(pName, t)
+	if err != nil {
+		e := misc.HandleError(err)
+		return server.NewCreateServerDefault(int(*e.Code)).WithPayload(e)
+	}
+	runtime, err := h.Client.Runtime()
+	if err == nil && defaults.DefaultServer == nil && backend.DefaultServer == nil {
+		// Also make sure the server attributes are supported by the runtime API.
+		err = misc.ConvertStruct(params.Data, ras)
+		useRuntime = err == nil
 	}
 
 	if params.TransactionID == nil {
@@ -144,10 +139,9 @@ func (h *CreateServerHandlerImpl) Handle(params server.CreateServerParams, princ
 			return server.NewCreateServerCreated().WithPayload(params.Data)
 		}
 		if useRuntime {
-			err = runtimeClient.AddServer(pName, params.Data.Name, SerializeRuntimeAddServer(ras))
+			err = runtime.AddServer(pName, params.Data.Name, SerializeRuntimeAddServer(ras))
 			if err == nil {
 				// No need to reload.
-				log.Debugf("backend %s: server %s added though runtime", pName, params.Data.Name)
 				return server.NewCreateServerCreated().WithPayload(params.Data)
 			}
 			log.Warning("failed to add server through runtime:", err)
@@ -231,12 +225,12 @@ func (h *GetServerHandlerImpl) Handle(params server.GetServerParams, principal i
 		return server.NewGetRuntimeServerDefault(int(*e.Code)).WithPayload(e)
 	}
 
-	_, srv, err := configuration.GetServer(params.Name, pType, pName, t)
+	v, srv, err := configuration.GetServer(params.Name, pType, pName, t)
 	if err != nil {
 		e := misc.HandleError(err)
 		return server.NewGetServerDefault(int(*e.Code)).WithPayload(e)
 	}
-	return server.NewGetServerOK().WithPayload(srv)
+	return server.NewGetServerOK().WithPayload(&server.GetServerOKBody{Version: v, Data: srv})
 }
 
 // Handle executing the request and returning a response
@@ -258,15 +252,15 @@ func (h *GetServersHandlerImpl) Handle(params server.GetServersParams, principal
 		return server.NewGetRuntimeServersDefault(int(*e.Code)).WithPayload(e)
 	}
 
-	_, srvs, err := configuration.GetServers(pType, pName, t)
+	v, srvs, err := configuration.GetServers(pType, pName, t)
 	if err != nil {
 		e := misc.HandleContainerGetError(err)
 		if *e.Code == misc.ErrHTTPOk {
-			return server.NewGetServersOK().WithPayload(models.Servers{})
+			return server.NewGetServersOK().WithPayload(&server.GetServersOKBody{Version: v, Data: models.Servers{}})
 		}
 		return server.NewGetServersDefault(int(*e.Code)).WithPayload(e)
 	}
-	return server.NewGetServersOK().WithPayload(srvs)
+	return server.NewGetServersOK().WithPayload(&server.GetServersOKBody{Version: v, Data: srvs})
 }
 
 // Handle executing the request and returning a response

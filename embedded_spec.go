@@ -52,9 +52,9 @@ func init() {
       "url": "https://my.haproxy.com/portal/cust/login",
       "email": "support@haproxy.com"
     },
-    "version": "3.0"
+    "version": "2.9"
   },
-  "basePath": "/v3",
+  "basePath": "/v2",
   "paths": {
     "/": {
       "get": {
@@ -308,7 +308,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/awsRegions"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/awsRegions"
+                }
+              }
             }
           },
           "default": {
@@ -373,7 +381,12 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/awsRegion"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/awsRegion"
+                }
+              }
             }
           },
           "404": {
@@ -467,7 +480,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/consuls"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/consuls"
+                }
+              }
             }
           },
           "default": {
@@ -532,7 +553,12 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/consul"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/consul"
+                }
+              }
             }
           },
           "404": {
@@ -728,7 +754,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/acls"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/acls"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -859,7 +896,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/acl"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/acl"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -1046,7 +1091,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/backend_switching_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/backend_switching_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -1155,7 +1211,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/backend_switching_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/backend_switching_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -1313,7 +1377,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/backends"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/backends"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -1408,7 +1483,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/backend"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/backend"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -1575,7 +1658,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/binds"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/binds"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -1716,7 +1810,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/bind"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/bind"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -1906,7 +2008,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/caches"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/caches"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -2001,7 +2114,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/cache"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/cache"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -2152,7 +2273,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/captures"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/captures"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -2261,7 +2393,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/capture"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/capture"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -2404,12 +2544,13 @@ func init() {
     },
     "/services/haproxy/configuration/defaults": {
       "get": {
-        "description": "Returns an array of all configured defaults.",
+        "description": "Returns defaults part of configuration, this has been deprecated, use named_defaults instead.",
         "tags": [
           "Defaults"
         ],
-        "summary": "Return an array of defaults",
-        "operationId": "getDefaultsSections",
+        "summary": "Return defaults part of configuration",
+        "operationId": "getDefaults",
+        "deprecated": true,
         "parameters": [
           {
             "$ref": "#/parameters/transaction_id"
@@ -2419,7 +2560,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/defaults_sections"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/defaults"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -2434,12 +2583,13 @@ func init() {
         }
       },
       "put": {
-        "description": "Adds a new defaults section to the configuration file.",
+        "description": "Replace defaults part of config, this has been deprecated, use named_defaults instead.",
         "tags": [
           "Defaults"
         ],
-        "summary": "Add a defaults section",
-        "operationId": "createDefaultsSection",
+        "summary": "Replace defaults",
+        "operationId": "replaceDefaults",
+        "deprecated": true,
         "parameters": [
           {
             "name": "data",
@@ -2460,8 +2610,8 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "Defaults created",
+          "200": {
+            "description": "Defaults replaced",
             "schema": {
               "$ref": "#/definitions/defaults"
             }
@@ -2480,160 +2630,6 @@ func init() {
           },
           "400": {
             "$ref": "#/responses/BadRequest"
-          },
-          "409": {
-            "$ref": "#/responses/AlreadyExists"
-          },
-          "default": {
-            "$ref": "#/responses/DefaultError"
-          }
-        }
-      }
-    },
-    "/services/haproxy/configuration/defaults/{name}": {
-      "get": {
-        "description": "Returns one defaults section configuration by it's name.",
-        "tags": [
-          "Defaults"
-        ],
-        "summary": "Return a defaults section",
-        "operationId": "getDefaultsSection",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Defaults name",
-            "name": "name",
-            "in": "path",
-            "required": true
-          },
-          {
-            "$ref": "#/parameters/transaction_id"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "$ref": "#/definitions/defaults"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
-            }
-          },
-          "404": {
-            "$ref": "#/responses/NotFound"
-          },
-          "default": {
-            "$ref": "#/responses/DefaultError"
-          }
-        }
-      },
-      "put": {
-        "description": "Replaces a defatults section configuration by it's name.",
-        "tags": [
-          "Defaults"
-        ],
-        "summary": "Replace a defatults section",
-        "operationId": "replaceDefaultsSection",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Defaults name",
-            "name": "name",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "data",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/defaults"
-            }
-          },
-          {
-            "$ref": "#/parameters/transaction_id"
-          },
-          {
-            "$ref": "#/parameters/version"
-          },
-          {
-            "$ref": "#/parameters/force_reload"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Defaults section replaced",
-            "schema": {
-              "$ref": "#/definitions/defaults"
-            }
-          },
-          "202": {
-            "description": "Configuration change accepted and reload requested",
-            "schema": {
-              "$ref": "#/definitions/defaults"
-            },
-            "headers": {
-              "Reload-ID": {
-                "type": "string",
-                "description": "ID of the requested reload"
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/responses/BadRequest"
-          },
-          "404": {
-            "$ref": "#/responses/NotFound"
-          },
-          "default": {
-            "$ref": "#/responses/DefaultError"
-          }
-        }
-      },
-      "delete": {
-        "description": "Deletes a defaults section from the configuration by it's name.",
-        "tags": [
-          "Defaults"
-        ],
-        "summary": "Delete a defaults section",
-        "operationId": "deleteDefaultsSection",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Defaults name",
-            "name": "name",
-            "in": "path",
-            "required": true
-          },
-          {
-            "$ref": "#/parameters/transaction_id"
-          },
-          {
-            "$ref": "#/parameters/version"
-          },
-          {
-            "$ref": "#/parameters/force_reload"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Configuration change accepted and reload requested",
-            "headers": {
-              "Reload-ID": {
-                "type": "string",
-                "description": "ID of the requested reload"
-              }
-            }
-          },
-          "204": {
-            "description": "Defaults section deleted"
-          },
-          "404": {
-            "$ref": "#/responses/NotFound"
           },
           "default": {
             "$ref": "#/responses/DefaultError"
@@ -2665,7 +2661,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/dgram_binds"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/dgram_binds"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -2774,7 +2781,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/dgram_bind"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/dgram_bind"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -2932,7 +2947,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/fcgiApps"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/fcgiApps"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -3027,7 +3053,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/fcgiApp"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/fcgiApp"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -3189,7 +3223,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/filters"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/filters"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -3320,7 +3365,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/filter"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/filter"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -3500,7 +3553,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/frontends"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/frontends"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -3595,7 +3659,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/frontend"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/frontend"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -3739,7 +3811,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/global"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/global"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -3830,7 +3910,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/groups"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/groups"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -3937,7 +4028,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/group"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/group"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -4111,7 +4210,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_after_response_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_after_response_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -4242,7 +4352,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_after_response_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_after_response_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -4439,7 +4557,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_checks"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_checks"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -4568,7 +4697,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_check"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_check"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -4764,7 +4901,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_error_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_error_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -4895,7 +5043,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_error_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_error_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -5075,7 +5231,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_errors_sections"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_errors_sections"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -5170,7 +5337,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_errors_section"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_errors_section"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -5332,7 +5507,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_request_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_request_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -5463,7 +5649,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_request_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_request_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -5661,7 +5855,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_response_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_response_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -5792,7 +5997,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_response_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_response_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -5972,7 +6185,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/log_forwards"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/log_forwards"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -6067,7 +6291,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/log_forward"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/log_forward"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -6232,7 +6464,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/log_targets"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/log_targets"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -6369,7 +6612,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/log_target"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/log_target"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -6562,7 +6813,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/mailer_entries"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/mailer_entries"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -6671,7 +6933,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/mailer_entry"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/mailer_entry"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -6829,7 +7099,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/mailers_sections"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/mailers_sections"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -6924,7 +7205,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/mailers_section"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/mailers_section"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -7051,6 +7340,264 @@ func init() {
         }
       }
     },
+    "/services/haproxy/configuration/named_defaults": {
+      "get": {
+        "description": "Returns an array of all configured defaults.",
+        "tags": [
+          "Defaults"
+        ],
+        "summary": "Return an array of defaults",
+        "operationId": "getDefaultsSections",
+        "parameters": [
+          {
+            "$ref": "#/parameters/transaction_id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/defaults_sections"
+                }
+              }
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/responses/DefaultError"
+          }
+        }
+      },
+      "post": {
+        "description": "Adds a new defaults section to the configuration file.",
+        "tags": [
+          "Defaults"
+        ],
+        "summary": "Add a defaults section",
+        "operationId": "createDefaultsSection",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            }
+          },
+          {
+            "$ref": "#/parameters/transaction_id"
+          },
+          {
+            "$ref": "#/parameters/version"
+          },
+          {
+            "$ref": "#/parameters/force_reload"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Defaults created",
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            }
+          },
+          "202": {
+            "description": "Configuration change accepted and reload requested",
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            },
+            "headers": {
+              "Reload-ID": {
+                "type": "string",
+                "description": "ID of the requested reload"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/BadRequest"
+          },
+          "409": {
+            "$ref": "#/responses/AlreadyExists"
+          },
+          "default": {
+            "$ref": "#/responses/DefaultError"
+          }
+        }
+      }
+    },
+    "/services/haproxy/configuration/named_defaults/{name}": {
+      "get": {
+        "description": "Returns one defaults section configuration by it's name.",
+        "tags": [
+          "Defaults"
+        ],
+        "summary": "Return a defaults section",
+        "operationId": "getDefaultsSection",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Defaults name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "$ref": "#/parameters/transaction_id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/defaults"
+                }
+              }
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/responses/DefaultError"
+          }
+        }
+      },
+      "put": {
+        "description": "Replaces a defatults section configuration by it's name.",
+        "tags": [
+          "Defaults"
+        ],
+        "summary": "Replace a defatults section",
+        "operationId": "replaceDefaultsSection",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Defaults name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            }
+          },
+          {
+            "$ref": "#/parameters/transaction_id"
+          },
+          {
+            "$ref": "#/parameters/version"
+          },
+          {
+            "$ref": "#/parameters/force_reload"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Defaults section replaced",
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            }
+          },
+          "202": {
+            "description": "Configuration change accepted and reload requested",
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            },
+            "headers": {
+              "Reload-ID": {
+                "type": "string",
+                "description": "ID of the requested reload"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/responses/DefaultError"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a defaults section from the configuration by it's name.",
+        "tags": [
+          "Defaults"
+        ],
+        "summary": "Delete a defaults section",
+        "operationId": "deleteDefaultsSection",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Defaults name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "$ref": "#/parameters/transaction_id"
+          },
+          {
+            "$ref": "#/parameters/version"
+          },
+          {
+            "$ref": "#/parameters/force_reload"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Configuration change accepted and reload requested",
+            "headers": {
+              "Reload-ID": {
+                "type": "string",
+                "description": "ID of the requested reload"
+              }
+            }
+          },
+          "204": {
+            "description": "Defaults section deleted"
+          },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          },
+          "default": {
+            "$ref": "#/responses/DefaultError"
+          }
+        }
+      }
+    },
     "/services/haproxy/configuration/nameservers": {
       "get": {
         "description": "Returns an array of all configured nameservers.",
@@ -7075,7 +7622,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/nameservers"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/nameservers"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -7184,7 +7742,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/nameserver"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/nameserver"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -7349,7 +7915,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/peer_entries"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/peer_entries"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -7458,7 +8035,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/peer_entry"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/peer_entry"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -7616,7 +8201,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/peer_sections"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/peer_sections"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -7711,7 +8307,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/peer_section"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/peer_section"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -7792,7 +8396,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/programs"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/programs"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -7887,7 +8502,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/program"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/program"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -8042,6 +8665,9 @@ func init() {
                 "data"
               ],
               "properties": {
+                "_version": {
+                  "type": "integer"
+                },
                 "data": {
                   "type": "string"
                 }
@@ -8194,7 +8820,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/resolvers"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/resolvers"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -8289,7 +8926,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/resolver"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/resolver"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -8433,7 +9078,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/rings"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/rings"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -8528,7 +9184,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/ring"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/ring"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -8679,7 +9343,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/server_switching_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/server_switching_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -8788,7 +9463,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/server_switching_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/server_switching_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -8953,11 +9636,22 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/server_templates"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/server_templates"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
-                "type": "string",
+                "type": "integer",
                 "description": "Configuration file version"
               }
             }
@@ -9062,11 +9756,19 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/server_template"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/server_template"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
-                "type": "string",
+                "type": "integer",
                 "description": "Configuration file version"
               }
             }
@@ -9243,7 +9945,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/servers"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/servers"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -9384,7 +10097,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/server"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/server"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -9581,7 +10302,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/stick_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/stick_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -9690,7 +10422,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/stick_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/stick_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -9855,7 +10595,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tables"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tables"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -9964,7 +10715,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/table"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/table"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -10139,7 +10898,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_checks"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_checks"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -10268,7 +11038,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_check"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_check"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -10464,7 +11242,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_request_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_request_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -10595,7 +11384,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_request_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_request_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -10782,7 +11579,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_response_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_response_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -10891,7 +11699,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_response_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_response_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -11049,7 +11865,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/userlists"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/userlists"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -11144,7 +11971,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/userlist"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/userlist"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -11231,7 +12066,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/users"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/users"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -11338,7 +12184,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/user"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/user"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -12659,7 +13513,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/sites"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/sites"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -12754,7 +13619,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/site"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/site"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -12936,7 +13809,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_agents"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_agents"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -13044,7 +13928,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_agent"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_agent"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -13256,6 +14151,9 @@ func init() {
             "schema": {
               "type": "object",
               "properties": {
+                "_version": {
+                  "type": "integer"
+                },
                 "data": {
                   "type": "string"
                 }
@@ -13336,7 +14234,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_groups"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_groups"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -13444,7 +14353,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_group"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_group"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -13603,7 +14523,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_messages"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_messages"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -13711,7 +14642,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_message"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_message"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -13863,7 +14805,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_scopes"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_scopes"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -13957,7 +14910,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_scope"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_scope"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -15035,12 +15999,6 @@ func init() {
             "description": "Transaction started",
             "schema": {
               "$ref": "#/definitions/transaction"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
             }
           },
           "429": {
@@ -15089,12 +16047,6 @@ func init() {
             "description": "Successful operation",
             "schema": {
               "$ref": "#/definitions/transaction"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
             }
           },
           "404": {
@@ -15129,12 +16081,6 @@ func init() {
             "description": "Transaction successfully committed",
             "schema": {
               "$ref": "#/definitions/transaction"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
             }
           },
           "202": {
@@ -15143,10 +16089,6 @@ func init() {
               "$ref": "#/definitions/transaction"
             },
             "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              },
               "Reload-ID": {
                 "type": "string",
                 "description": "ID of the requested reload"
@@ -15718,6 +16660,23 @@ func init() {
           },
           "x-display-name": "HTTP bufferrequest"
         },
+        "http-check": {
+          "$ref": "#/definitions/http_check"
+        },
+        "http-keep-alive": {
+          "type": "string",
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
+          "x-dependency": {
+            "mode": {
+              "value": "http"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "HTTP keep-alive"
+        },
         "http-no-delay": {
           "type": "string",
           "enum": [
@@ -15730,6 +16689,20 @@ func init() {
             }
           },
           "x-display-name": "HTTP low interactive delays"
+        },
+        "http-server-close": {
+          "type": "string",
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
+          "x-dependency": {
+            "mode": {
+              "value": "http"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "HTTP server close"
         },
         "http-use-htx": {
           "type": "string",
@@ -15838,6 +16811,20 @@ func init() {
             }
           },
           "$ref": "#/definitions/httpchk_params"
+        },
+        "httpclose": {
+          "type": "string",
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
+          "x-dependency": {
+            "mode": {
+              "value": "http"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "HTTP connection closing"
         },
         "id": {
           "type": "integer",
@@ -17195,6 +18182,24 @@ func init() {
             "linear",
             "exponential"
           ]
+        },
+        "service-blacklist": {
+          "description": "deprecated, use service_denylist",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[^\\s]+$"
+          },
+          "x-omitempty": true
+        },
+        "service-whitelist": {
+          "description": "deprecated, use service_allowlist",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[^\\s]+$"
+          },
+          "x-omitempty": true
         },
         "service_allowlist": {
           "type": "array",
@@ -19307,6 +20312,9 @@ func init() {
           "pattern": "^[^\\s]+$",
           "x-display-name": "Group"
         },
+        "h1_accept_payload_with_any_method": {
+          "type": "boolean"
+        },
         "h1_case_adjust": {
           "type": "array",
           "items": {
@@ -19330,6 +20338,9 @@ func init() {
         },
         "h1_case_adjust_file": {
           "type": "string"
+        },
+        "h1_do_not_close_on_insecure_transfer_encoding": {
+          "type": "boolean"
         },
         "h2_workaround_bogus_websocket_clients": {
           "type": "boolean"
@@ -19393,6 +20404,14 @@ func init() {
         },
         "limited_quic": {
           "type": "boolean"
+        },
+        "load_server_state_from_file": {
+          "type": "string",
+          "enum": [
+            "global",
+            "local",
+            "none"
+          ]
         },
         "localpeer": {
           "type": "string",
@@ -20309,6 +21328,11 @@ func init() {
             }
           }
         },
+        "tune_ssl_default_dh_param": {
+          "type": "integer",
+          "x-deprecated": true,
+          "x-display-name": "SSL Default DH Parameter Size"
+        },
         "uid": {
           "type": "integer",
           "x-display-name": "UID"
@@ -20457,6 +21481,36 @@ func init() {
             }
           },
           "x-display-name": "ACK Key Format"
+        },
+        "capture_id": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "value": "capture"
+            }
+          },
+          "x-display-name": "Capture SlotID",
+          "x-nullable": true
+        },
+        "capture_len": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "capture"
+            }
+          },
+          "x-display-name": "Capture Len"
+        },
+        "capture_sample": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "capture"
+            }
+          },
+          "x-display-name": "Capture Sample"
         },
         "cond": {
           "type": "string",
@@ -20691,6 +21745,7 @@ func init() {
           "enum": [
             "add-header",
             "allow",
+            "capture",
             "del-acl",
             "del-header",
             "del-map",
@@ -20707,6 +21762,7 @@ func init() {
             "set-map",
             "set-status",
             "set-var",
+            "set-var-fmt",
             "strict-mode",
             "unset-var"
           ],
@@ -20722,6 +21778,16 @@ func init() {
           },
           "x-display-name": "Var Expression"
         },
+        "var_format": {
+          "type": "string",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "set-var-fmt"
+            }
+          },
+          "x-display-name": "Var Format"
+        },
         "var_name": {
           "type": "string",
           "pattern": "^[^\\s]+$",
@@ -20730,6 +21796,7 @@ func init() {
               "required": true,
               "value": [
                 "set-var",
+                "set-var-fmt",
                 "unset-var"
               ]
             }
@@ -20743,6 +21810,7 @@ func init() {
               "required": true,
               "value": [
                 "set-var",
+                "set-var-fmt",
                 "unset-var"
               ]
             }
@@ -21479,12 +22547,8 @@ func init() {
               "required": true,
               "value": [
                 "do-resolve",
-                "set-bc-mark",
-                "set-bc-tos",
                 "set-dst",
                 "set-dst-port",
-                "set-fc-mark",
-                "set-fc-tos",
                 "set-priority-class",
                 "set-priority-offset",
                 "set-src",
@@ -21925,6 +22989,18 @@ func init() {
           "x-display-name": "Return Error Code",
           "x-nullable": true
         },
+        "rst_ttl": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": [
+                "silent-drop"
+              ]
+            }
+          },
+          "x-display-name": "RST TTL"
+        },
         "sc_expr": {
           "type": "string",
           "x-dependency": {
@@ -22059,6 +23135,75 @@ func init() {
           },
           "x-display-name": "Tos Value"
         },
+        "track-sc0-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc0"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc0 Key"
+        },
+        "track-sc0-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc0"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc0 Table"
+        },
+        "track-sc1-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc1"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc1 Key"
+        },
+        "track-sc1-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc1"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc1 Table"
+        },
+        "track-sc2-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc2"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc2 Key"
+        },
+        "track-sc2-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc2"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc2 Table"
+        },
         "track_sc_key": {
           "type": "string",
           "pattern": "^[^\\s]+$",
@@ -22123,12 +23268,8 @@ func init() {
             "sc-set-gpt",
             "sc-set-gpt0",
             "send-spoe-group",
-            "set-bc-mark",
-            "set-bc-tos",
             "set-dst",
             "set-dst-port",
-            "set-fc-mark",
-            "set-fc-tos",
             "set-header",
             "set-log-level",
             "set-map",
@@ -22397,19 +23538,6 @@ func init() {
             }
           },
           "x-nullable": true
-        },
-        "expr": {
-          "type": "string",
-          "x-dependency": {
-            "type": {
-              "required": true,
-              "value": [
-                "set-fc-mark",
-                "set-fc-tos"
-              ]
-            }
-          },
-          "x-display-name": "Standard HAProxy expression"
         },
         "hdr_format": {
           "type": "string",
@@ -22702,6 +23830,18 @@ func init() {
           "x-display-name": "Return Error Code",
           "x-nullable": true
         },
+        "rst_ttl": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": [
+                "silent-drop"
+              ]
+            }
+          },
+          "x-display-name": "RST TTL"
+        },
         "sc_expr": {
           "type": "string",
           "x-dependency": {
@@ -22845,6 +23985,75 @@ func init() {
           },
           "x-display-name": "Tos Value"
         },
+        "track-sc0-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc0"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc0 Key"
+        },
+        "track-sc0-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc0"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc0 Table"
+        },
+        "track-sc1-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc1"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc1 Key"
+        },
+        "track-sc1-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc1"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc1 Table"
+        },
+        "track-sc2-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc2"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc2 Key"
+        },
+        "track-sc2-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc2"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc2 Table"
+        },
         "track_sc_key": {
           "type": "string",
           "pattern": "^[^\\s]+$",
@@ -22900,8 +24109,6 @@ func init() {
             "sc-set-gpt",
             "sc-set-gpt0",
             "send-spoe-group",
-            "set-fc-mark",
-            "set-fc-tos",
             "set-header",
             "set-log-level",
             "set-map",
@@ -23952,6 +25159,13 @@ func init() {
               "frontend",
               "backend"
             ]
+          },
+          "x-nullable": true
+        },
+        "last_agt": {
+          "type": "string",
+          "x-dependency": {
+            "type": "server"
           },
           "x-nullable": true
         },
@@ -26768,12 +27982,6 @@ func init() {
       "type": "object",
       "title": "SSL File",
       "properties": {
-        "algorithm": {
-          "type": "string"
-        },
-        "authority_key_id": {
-          "type": "string"
-        },
         "description": {
           "type": "string"
         },
@@ -26809,15 +28017,6 @@ func init() {
           "x-nullable": true,
           "readOnly": true
         },
-        "serial": {
-          "type": "string"
-        },
-        "sha1_finger_print": {
-          "type": "string"
-        },
-        "sha256_finger_print": {
-          "type": "string"
-        },
         "size": {
           "description": "File size in bytes.",
           "type": "integer",
@@ -26825,15 +28024,6 @@ func init() {
           "readOnly": true
         },
         "storage_name": {
-          "type": "string"
-        },
-        "subject": {
-          "type": "string"
-        },
-        "subject_alternative_names": {
-          "type": "string"
-        },
-        "subject_key_id": {
           "type": "string"
         }
       }
@@ -27704,12 +28894,8 @@ func init() {
             "sc-set-gpt0",
             "send-spoe-group",
             "set-bandwidth-limit",
-            "set-bc-mark",
-            "set-bc-tos",
             "set-dst-port",
             "set-dst",
-            "set-fc-mark",
-            "set-fc-tos",
             "set-log-level",
             "set-mark",
             "set-nice",
@@ -27858,12 +29044,8 @@ func init() {
               "required": true,
               "value": [
                 "do-resolve",
-                "set-bc-mark",
-                "set-bc-tos",
                 "set-dst",
                 "set-dst-port",
-                "set-fc-mark",
-                "set-fc-tos",
                 "set-priority-class",
                 "set-priority-offset",
                 "set-src",
@@ -28042,6 +29224,18 @@ func init() {
             }
           },
           "x-display-name": "Variable name"
+        },
+        "rst_ttl": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": [
+                "silent-drop"
+              ]
+            }
+          },
+          "x-display-name": "RST TTL"
         },
         "sc_idx": {
           "type": "string",
@@ -28286,6 +29480,7 @@ func init() {
             },
             "type": {
               "value": [
+                "session",
                 "connection",
                 "content"
               ]
@@ -28378,8 +29573,6 @@ func init() {
             "sc-set-gpt0",
             "send-spoe-group",
             "set-bandwidth-limit",
-            "set-fc-mark",
-            "set-fc-tos",
             "set-log-level",
             "set-mark",
             "set-nice",
@@ -28470,9 +29663,7 @@ func init() {
               "required": true,
               "value": [
                 "set-src-port",
-                "sc-set-gpt0",
-                "set-fc-mark",
-                "set-fc-tos"
+                "sc-set-gpt0"
               ]
             },
             "type": {
@@ -28563,6 +29754,18 @@ func init() {
           },
           "x-display-name": "Nice Value",
           "x-nullable": false
+        },
+        "rst_ttl": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": [
+                "silent-drop"
+              ]
+            }
+          },
+          "x-display-name": "RST TTL"
         },
         "sc_expr": {
           "type": "string",
@@ -29141,9 +30344,9 @@ func init() {
       "url": "https://my.haproxy.com/portal/cust/login",
       "email": "support@haproxy.com"
     },
-    "version": "3.0"
+    "version": "2.9"
   },
-  "basePath": "/v3",
+  "basePath": "/v2",
   "paths": {
     "/": {
       "get": {
@@ -29499,7 +30702,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/awsRegions"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/awsRegions"
+                }
+              }
             }
           },
           "default": {
@@ -29600,7 +30811,12 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/awsRegion"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/awsRegion"
+                }
+              }
             }
           },
           "404": {
@@ -29757,7 +30973,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/consuls"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/consuls"
+                }
+              }
             }
           },
           "default": {
@@ -29858,7 +31082,12 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/consul"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/consul"
+                }
+              }
             }
           },
           "404": {
@@ -30148,7 +31377,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/acls"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/acls"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -30331,7 +31571,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/acl"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/acl"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -30609,7 +31857,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/backend_switching_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/backend_switching_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -30770,7 +32029,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/backend_switching_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/backend_switching_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -31019,7 +32286,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/backends"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/backends"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -31166,7 +32444,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/backend"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/backend"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -31424,7 +32710,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/binds"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/binds"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -31617,7 +32914,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/bind"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/bind"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -31898,7 +33203,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/caches"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/caches"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -32045,7 +33361,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/cache"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/cache"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -32287,7 +33611,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/captures"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/captures"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -32448,7 +33783,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/capture"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/capture"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -32678,12 +34021,13 @@ func init() {
     },
     "/services/haproxy/configuration/defaults": {
       "get": {
-        "description": "Returns an array of all configured defaults.",
+        "description": "Returns defaults part of configuration, this has been deprecated, use named_defaults instead.",
         "tags": [
           "Defaults"
         ],
-        "summary": "Return an array of defaults",
-        "operationId": "getDefaultsSections",
+        "summary": "Return defaults part of configuration",
+        "operationId": "getDefaults",
+        "deprecated": true,
         "parameters": [
           {
             "type": "string",
@@ -32697,7 +34041,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/defaults_sections"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/defaults"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -32721,12 +34073,13 @@ func init() {
         }
       },
       "put": {
-        "description": "Adds a new defaults section to the configuration file.",
+        "description": "Replace defaults part of config, this has been deprecated, use named_defaults instead.",
         "tags": [
           "Defaults"
         ],
-        "summary": "Add a defaults section",
-        "operationId": "createDefaultsSection",
+        "summary": "Replace defaults",
+        "operationId": "replaceDefaults",
+        "deprecated": true,
         "parameters": [
           {
             "name": "data",
@@ -32759,8 +34112,8 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "Defaults created",
+          "200": {
+            "description": "Defaults replaced",
             "schema": {
               "$ref": "#/definitions/defaults"
             }
@@ -32779,260 +34132,6 @@ func init() {
           },
           "400": {
             "description": "Bad request",
-            "schema": {
-              "$ref": "#/definitions/error"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
-            }
-          },
-          "409": {
-            "description": "The specified resource already exists",
-            "schema": {
-              "$ref": "#/definitions/error"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
-            }
-          },
-          "default": {
-            "description": "General Error",
-            "schema": {
-              "$ref": "#/definitions/error"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/services/haproxy/configuration/defaults/{name}": {
-      "get": {
-        "description": "Returns one defaults section configuration by it's name.",
-        "tags": [
-          "Defaults"
-        ],
-        "summary": "Return a defaults section",
-        "operationId": "getDefaultsSection",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Defaults name",
-            "name": "name",
-            "in": "path",
-            "required": true
-          },
-          {
-            "type": "string",
-            "x-nullable": false,
-            "description": "ID of the transaction where we want to add the operation. Cannot be used when version is specified.",
-            "name": "transaction_id",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "$ref": "#/definitions/defaults"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
-            }
-          },
-          "404": {
-            "description": "The specified resource was not found",
-            "schema": {
-              "$ref": "#/definitions/error"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
-            }
-          },
-          "default": {
-            "description": "General Error",
-            "schema": {
-              "$ref": "#/definitions/error"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "description": "Replaces a defatults section configuration by it's name.",
-        "tags": [
-          "Defaults"
-        ],
-        "summary": "Replace a defatults section",
-        "operationId": "replaceDefaultsSection",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Defaults name",
-            "name": "name",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "data",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/defaults"
-            }
-          },
-          {
-            "type": "string",
-            "x-nullable": false,
-            "description": "ID of the transaction where we want to add the operation. Cannot be used when version is specified.",
-            "name": "transaction_id",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "x-nullable": false,
-            "description": "Version used for checking configuration version. Cannot be used when transaction is specified, transaction has it's own version.",
-            "name": "version",
-            "in": "query"
-          },
-          {
-            "type": "boolean",
-            "default": false,
-            "description": "If set, do a force reload, do not wait for the configured reload-delay. Cannot be used when transaction is specified, as changes in transaction are not applied directly to configuration.",
-            "name": "force_reload",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Defaults section replaced",
-            "schema": {
-              "$ref": "#/definitions/defaults"
-            }
-          },
-          "202": {
-            "description": "Configuration change accepted and reload requested",
-            "schema": {
-              "$ref": "#/definitions/defaults"
-            },
-            "headers": {
-              "Reload-ID": {
-                "type": "string",
-                "description": "ID of the requested reload"
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "schema": {
-              "$ref": "#/definitions/error"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
-            }
-          },
-          "404": {
-            "description": "The specified resource was not found",
-            "schema": {
-              "$ref": "#/definitions/error"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
-            }
-          },
-          "default": {
-            "description": "General Error",
-            "schema": {
-              "$ref": "#/definitions/error"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "description": "Deletes a defaults section from the configuration by it's name.",
-        "tags": [
-          "Defaults"
-        ],
-        "summary": "Delete a defaults section",
-        "operationId": "deleteDefaultsSection",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "Defaults name",
-            "name": "name",
-            "in": "path",
-            "required": true
-          },
-          {
-            "type": "string",
-            "x-nullable": false,
-            "description": "ID of the transaction where we want to add the operation. Cannot be used when version is specified.",
-            "name": "transaction_id",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "x-nullable": false,
-            "description": "Version used for checking configuration version. Cannot be used when transaction is specified, transaction has it's own version.",
-            "name": "version",
-            "in": "query"
-          },
-          {
-            "type": "boolean",
-            "default": false,
-            "description": "If set, do a force reload, do not wait for the configured reload-delay. Cannot be used when transaction is specified, as changes in transaction are not applied directly to configuration.",
-            "name": "force_reload",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Configuration change accepted and reload requested",
-            "headers": {
-              "Reload-ID": {
-                "type": "string",
-                "description": "ID of the requested reload"
-              }
-            }
-          },
-          "204": {
-            "description": "Defaults section deleted"
-          },
-          "404": {
-            "description": "The specified resource was not found",
             "schema": {
               "$ref": "#/definitions/error"
             },
@@ -33086,7 +34185,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/dgram_binds"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/dgram_binds"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -33247,7 +34357,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/dgram_bind"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/dgram_bind"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -33496,7 +34614,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/fcgiApps"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/fcgiApps"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -33643,7 +34772,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/fcgiApp"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/fcgiApp"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -33896,7 +35033,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/filters"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/filters"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -34079,7 +35227,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/filter"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/filter"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -34350,7 +35506,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/frontends"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/frontends"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -34497,7 +35664,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/frontend"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/frontend"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -34732,7 +35907,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/global"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/global"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -34866,7 +36049,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/groups"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/groups"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -35025,7 +36219,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/group"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/group"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -35290,7 +36492,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_after_response_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_after_response_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -35473,7 +36686,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_after_response_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_after_response_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -35761,7 +36982,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_checks"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_checks"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -35942,7 +37174,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_check"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_check"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -36229,7 +37469,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_error_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_error_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -36412,7 +37663,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_error_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_error_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -36683,7 +37942,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_errors_sections"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_errors_sections"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -36830,7 +38100,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_errors_section"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_errors_section"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -37083,7 +38361,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_request_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_request_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -37266,7 +38555,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_request_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_request_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -37555,7 +38852,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_response_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_response_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -37738,7 +39046,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/http_response_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/http_response_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -38009,7 +39325,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/log_forwards"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/log_forwards"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -38156,7 +39483,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/log_forward"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/log_forward"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -38412,7 +39747,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/log_targets"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/log_targets"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -38601,7 +39947,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/log_target"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/log_target"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -38885,7 +40239,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/mailer_entries"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/mailer_entries"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -39046,7 +40411,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/mailer_entry"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/mailer_entry"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -39295,7 +40668,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/mailers_sections"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/mailers_sections"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -39442,7 +40826,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/mailers_section"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/mailers_section"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -39656,6 +41048,407 @@ func init() {
         }
       }
     },
+    "/services/haproxy/configuration/named_defaults": {
+      "get": {
+        "description": "Returns an array of all configured defaults.",
+        "tags": [
+          "Defaults"
+        ],
+        "summary": "Return an array of defaults",
+        "operationId": "getDefaultsSections",
+        "parameters": [
+          {
+            "type": "string",
+            "x-nullable": false,
+            "description": "ID of the transaction where we want to add the operation. Cannot be used when version is specified.",
+            "name": "transaction_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/defaults_sections"
+                }
+              }
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          },
+          "default": {
+            "description": "General Error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Adds a new defaults section to the configuration file.",
+        "tags": [
+          "Defaults"
+        ],
+        "summary": "Add a defaults section",
+        "operationId": "createDefaultsSection",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            }
+          },
+          {
+            "type": "string",
+            "x-nullable": false,
+            "description": "ID of the transaction where we want to add the operation. Cannot be used when version is specified.",
+            "name": "transaction_id",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "x-nullable": false,
+            "description": "Version used for checking configuration version. Cannot be used when transaction is specified, transaction has it's own version.",
+            "name": "version",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "default": false,
+            "description": "If set, do a force reload, do not wait for the configured reload-delay. Cannot be used when transaction is specified, as changes in transaction are not applied directly to configuration.",
+            "name": "force_reload",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Defaults created",
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            }
+          },
+          "202": {
+            "description": "Configuration change accepted and reload requested",
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            },
+            "headers": {
+              "Reload-ID": {
+                "type": "string",
+                "description": "ID of the requested reload"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          },
+          "409": {
+            "description": "The specified resource already exists",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          },
+          "default": {
+            "description": "General Error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/services/haproxy/configuration/named_defaults/{name}": {
+      "get": {
+        "description": "Returns one defaults section configuration by it's name.",
+        "tags": [
+          "Defaults"
+        ],
+        "summary": "Return a defaults section",
+        "operationId": "getDefaultsSection",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Defaults name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-nullable": false,
+            "description": "ID of the transaction where we want to add the operation. Cannot be used when version is specified.",
+            "name": "transaction_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/defaults"
+                }
+              }
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource was not found",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          },
+          "default": {
+            "description": "General Error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Replaces a defatults section configuration by it's name.",
+        "tags": [
+          "Defaults"
+        ],
+        "summary": "Replace a defatults section",
+        "operationId": "replaceDefaultsSection",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Defaults name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            }
+          },
+          {
+            "type": "string",
+            "x-nullable": false,
+            "description": "ID of the transaction where we want to add the operation. Cannot be used when version is specified.",
+            "name": "transaction_id",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "x-nullable": false,
+            "description": "Version used for checking configuration version. Cannot be used when transaction is specified, transaction has it's own version.",
+            "name": "version",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "default": false,
+            "description": "If set, do a force reload, do not wait for the configured reload-delay. Cannot be used when transaction is specified, as changes in transaction are not applied directly to configuration.",
+            "name": "force_reload",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Defaults section replaced",
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            }
+          },
+          "202": {
+            "description": "Configuration change accepted and reload requested",
+            "schema": {
+              "$ref": "#/definitions/defaults"
+            },
+            "headers": {
+              "Reload-ID": {
+                "type": "string",
+                "description": "ID of the requested reload"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource was not found",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          },
+          "default": {
+            "description": "General Error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a defaults section from the configuration by it's name.",
+        "tags": [
+          "Defaults"
+        ],
+        "summary": "Delete a defaults section",
+        "operationId": "deleteDefaultsSection",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Defaults name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-nullable": false,
+            "description": "ID of the transaction where we want to add the operation. Cannot be used when version is specified.",
+            "name": "transaction_id",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "x-nullable": false,
+            "description": "Version used for checking configuration version. Cannot be used when transaction is specified, transaction has it's own version.",
+            "name": "version",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "default": false,
+            "description": "If set, do a force reload, do not wait for the configured reload-delay. Cannot be used when transaction is specified, as changes in transaction are not applied directly to configuration.",
+            "name": "force_reload",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Configuration change accepted and reload requested",
+            "headers": {
+              "Reload-ID": {
+                "type": "string",
+                "description": "ID of the requested reload"
+              }
+            }
+          },
+          "204": {
+            "description": "Defaults section deleted"
+          },
+          "404": {
+            "description": "The specified resource was not found",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          },
+          "default": {
+            "description": "General Error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "headers": {
+              "Configuration-Version": {
+                "type": "string",
+                "description": "Configuration file version"
+              }
+            }
+          }
+        }
+      }
+    },
     "/services/haproxy/configuration/nameservers": {
       "get": {
         "description": "Returns an array of all configured nameservers.",
@@ -39684,7 +41477,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/nameservers"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/nameservers"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -39845,7 +41649,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/nameserver"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/nameserver"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -40101,7 +41913,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/peer_entries"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/peer_entries"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -40262,7 +42085,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/peer_entry"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/peer_entry"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -40511,7 +42342,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/peer_sections"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/peer_sections"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -40658,7 +42500,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/peer_section"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/peer_section"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -40791,7 +42641,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/programs"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/programs"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -40938,7 +42799,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/program"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/program"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -41188,6 +43057,9 @@ func init() {
                 "data"
               ],
               "properties": {
+                "_version": {
+                  "type": "integer"
+                },
                 "data": {
                   "type": "string"
                 }
@@ -41379,7 +43251,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/resolvers"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/resolvers"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -41526,7 +43409,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/resolver"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/resolver"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -41761,7 +43652,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/rings"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/rings"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -41908,7 +43810,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/ring"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/ring"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -42150,7 +44060,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/server_switching_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/server_switching_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -42311,7 +44232,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/server_switching_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/server_switching_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -42567,11 +44496,22 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/server_templates"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/server_templates"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
-                "type": "string",
+                "type": "integer",
                 "description": "Configuration file version"
               }
             }
@@ -42728,11 +44668,19 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/server_template"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/server_template"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
-                "type": "string",
+                "type": "integer",
                 "description": "Configuration file version"
               }
             }
@@ -43000,7 +44948,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/servers"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/servers"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -43193,7 +45152,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/server"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/server"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -43481,7 +45448,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/stick_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/stick_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -43642,7 +45620,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/stick_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/stick_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -43898,7 +45884,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tables"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tables"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -44059,7 +46056,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/table"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/table"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -44325,7 +46330,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_checks"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_checks"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -44506,7 +46522,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_check"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_check"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -44793,7 +46817,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_request_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_request_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -44976,7 +47011,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_request_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_request_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -45254,7 +47297,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_response_rules"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_response_rules"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -45415,7 +47469,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/tcp_response_rule"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/tcp_response_rule"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -45664,7 +47726,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/userlists"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/userlists"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -45811,7 +47884,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/userlist"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/userlist"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -45950,7 +48031,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/users"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/users"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -46109,7 +48201,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/user"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/user"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -48083,7 +50183,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/sites"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/sites"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -48230,7 +50341,15 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/site"
+              "type": "object",
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/site"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -48512,7 +50631,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_agents"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_agents"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -48668,7 +50798,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_agent"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_agent"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -49004,6 +51145,9 @@ func init() {
             "schema": {
               "type": "object",
               "properties": {
+                "_version": {
+                  "type": "integer"
+                },
                 "data": {
                   "type": "string"
                 }
@@ -49124,7 +51268,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_groups"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_groups"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -49280,7 +51435,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_group"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_group"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -49522,7 +51688,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_messages"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_messages"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -49678,7 +51855,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_message"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_message"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -49913,7 +52101,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_scopes"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_scopes"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -50055,7 +52254,18 @@ func init() {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/spoe_scope"
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "_version": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/spoe_scope"
+                }
+              }
             },
             "headers": {
               "Configuration-Version": {
@@ -51680,12 +53890,6 @@ func init() {
             "description": "Transaction started",
             "schema": {
               "$ref": "#/definitions/transaction"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
             }
           },
           "429": {
@@ -51743,12 +53947,6 @@ func init() {
             "description": "Successful operation",
             "schema": {
               "$ref": "#/definitions/transaction"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
             }
           },
           "404": {
@@ -51805,12 +54003,6 @@ func init() {
             "description": "Transaction successfully committed",
             "schema": {
               "$ref": "#/definitions/transaction"
-            },
-            "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              }
             }
           },
           "202": {
@@ -51819,10 +54011,6 @@ func init() {
               "$ref": "#/definitions/transaction"
             },
             "headers": {
-              "Configuration-Version": {
-                "type": "string",
-                "description": "Configuration file version"
-              },
               "Reload-ID": {
                 "type": "string",
                 "description": "ID of the requested reload"
@@ -53687,6 +55875,23 @@ func init() {
           },
           "x-display-name": "HTTP bufferrequest"
         },
+        "http-check": {
+          "$ref": "#/definitions/http_check"
+        },
+        "http-keep-alive": {
+          "type": "string",
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
+          "x-dependency": {
+            "mode": {
+              "value": "http"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "HTTP keep-alive"
+        },
         "http-no-delay": {
           "type": "string",
           "enum": [
@@ -53699,6 +55904,20 @@ func init() {
             }
           },
           "x-display-name": "HTTP low interactive delays"
+        },
+        "http-server-close": {
+          "type": "string",
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
+          "x-dependency": {
+            "mode": {
+              "value": "http"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "HTTP server close"
         },
         "http-use-htx": {
           "type": "string",
@@ -53807,6 +56026,20 @@ func init() {
             }
           },
           "$ref": "#/definitions/httpchk_params"
+        },
+        "httpclose": {
+          "type": "string",
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
+          "x-dependency": {
+            "mode": {
+              "value": "http"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "HTTP connection closing"
         },
         "id": {
           "type": "integer",
@@ -55114,6 +57347,24 @@ func init() {
             "linear",
             "exponential"
           ]
+        },
+        "service-blacklist": {
+          "description": "deprecated, use service_denylist",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[^\\s]+$"
+          },
+          "x-omitempty": true
+        },
+        "service-whitelist": {
+          "description": "deprecated, use service_allowlist",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[^\\s]+$"
+          },
+          "x-omitempty": true
         },
         "service_allowlist": {
           "type": "array",
@@ -57198,6 +59449,9 @@ func init() {
           "pattern": "^[^\\s]+$",
           "x-display-name": "Group"
         },
+        "h1_accept_payload_with_any_method": {
+          "type": "boolean"
+        },
         "h1_case_adjust": {
           "type": "array",
           "items": {
@@ -57208,6 +59462,9 @@ func init() {
         },
         "h1_case_adjust_file": {
           "type": "string"
+        },
+        "h1_do_not_close_on_insecure_transfer_encoding": {
+          "type": "boolean"
         },
         "h2_workaround_bogus_websocket_clients": {
           "type": "boolean"
@@ -57271,6 +59528,14 @@ func init() {
         },
         "limited_quic": {
           "type": "boolean"
+        },
+        "load_server_state_from_file": {
+          "type": "string",
+          "enum": [
+            "global",
+            "local",
+            "none"
+          ]
         },
         "localpeer": {
           "type": "string",
@@ -58055,6 +60320,11 @@ func init() {
             }
           }
         },
+        "tune_ssl_default_dh_param": {
+          "type": "integer",
+          "x-deprecated": true,
+          "x-display-name": "SSL Default DH Parameter Size"
+        },
         "uid": {
           "type": "integer",
           "x-display-name": "UID"
@@ -58203,6 +60473,36 @@ func init() {
             }
           },
           "x-display-name": "ACK Key Format"
+        },
+        "capture_id": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "value": "capture"
+            }
+          },
+          "x-display-name": "Capture SlotID",
+          "x-nullable": true
+        },
+        "capture_len": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "capture"
+            }
+          },
+          "x-display-name": "Capture Len"
+        },
+        "capture_sample": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "capture"
+            }
+          },
+          "x-display-name": "Capture Sample"
         },
         "cond": {
           "type": "string",
@@ -58437,6 +60737,7 @@ func init() {
           "enum": [
             "add-header",
             "allow",
+            "capture",
             "del-acl",
             "del-header",
             "del-map",
@@ -58453,6 +60754,7 @@ func init() {
             "set-map",
             "set-status",
             "set-var",
+            "set-var-fmt",
             "strict-mode",
             "unset-var"
           ],
@@ -58468,6 +60770,16 @@ func init() {
           },
           "x-display-name": "Var Expression"
         },
+        "var_format": {
+          "type": "string",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "set-var-fmt"
+            }
+          },
+          "x-display-name": "Var Format"
+        },
         "var_name": {
           "type": "string",
           "pattern": "^[^\\s]+$",
@@ -58476,6 +60788,7 @@ func init() {
               "required": true,
               "value": [
                 "set-var",
+                "set-var-fmt",
                 "unset-var"
               ]
             }
@@ -58489,6 +60802,7 @@ func init() {
               "required": true,
               "value": [
                 "set-var",
+                "set-var-fmt",
                 "unset-var"
               ]
             }
@@ -59225,12 +61539,8 @@ func init() {
               "required": true,
               "value": [
                 "do-resolve",
-                "set-bc-mark",
-                "set-bc-tos",
                 "set-dst",
                 "set-dst-port",
-                "set-fc-mark",
-                "set-fc-tos",
                 "set-priority-class",
                 "set-priority-offset",
                 "set-src",
@@ -59671,6 +61981,18 @@ func init() {
           "x-display-name": "Return Error Code",
           "x-nullable": true
         },
+        "rst_ttl": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": [
+                "silent-drop"
+              ]
+            }
+          },
+          "x-display-name": "RST TTL"
+        },
         "sc_expr": {
           "type": "string",
           "x-dependency": {
@@ -59805,6 +62127,75 @@ func init() {
           },
           "x-display-name": "Tos Value"
         },
+        "track-sc0-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc0"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc0 Key"
+        },
+        "track-sc0-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc0"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc0 Table"
+        },
+        "track-sc1-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc1"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc1 Key"
+        },
+        "track-sc1-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc1"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc1 Table"
+        },
+        "track-sc2-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc2"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc2 Key"
+        },
+        "track-sc2-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc2"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc2 Table"
+        },
         "track_sc_key": {
           "type": "string",
           "pattern": "^[^\\s]+$",
@@ -59869,12 +62260,8 @@ func init() {
             "sc-set-gpt",
             "sc-set-gpt0",
             "send-spoe-group",
-            "set-bc-mark",
-            "set-bc-tos",
             "set-dst",
             "set-dst-port",
-            "set-fc-mark",
-            "set-fc-tos",
             "set-header",
             "set-log-level",
             "set-map",
@@ -60143,19 +62530,6 @@ func init() {
             }
           },
           "x-nullable": true
-        },
-        "expr": {
-          "type": "string",
-          "x-dependency": {
-            "type": {
-              "required": true,
-              "value": [
-                "set-fc-mark",
-                "set-fc-tos"
-              ]
-            }
-          },
-          "x-display-name": "Standard HAProxy expression"
         },
         "hdr_format": {
           "type": "string",
@@ -60448,6 +62822,18 @@ func init() {
           "x-display-name": "Return Error Code",
           "x-nullable": true
         },
+        "rst_ttl": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": [
+                "silent-drop"
+              ]
+            }
+          },
+          "x-display-name": "RST TTL"
+        },
         "sc_expr": {
           "type": "string",
           "x-dependency": {
@@ -60591,6 +62977,75 @@ func init() {
           },
           "x-display-name": "Tos Value"
         },
+        "track-sc0-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc0"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc0 Key"
+        },
+        "track-sc0-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc0"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc0 Table"
+        },
+        "track-sc1-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc1"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc1 Key"
+        },
+        "track-sc1-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc1"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc1 Table"
+        },
+        "track-sc2-key": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": "track-sc2"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc2 Key"
+        },
+        "track-sc2-table": {
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "x-dependency": {
+            "type": {
+              "value": "track-sc2"
+            }
+          },
+          "x-deprecated": true,
+          "x-display-name": "track-sc2 Table"
+        },
         "track_sc_key": {
           "type": "string",
           "pattern": "^[^\\s]+$",
@@ -60646,8 +63101,6 @@ func init() {
             "sc-set-gpt",
             "sc-set-gpt0",
             "send-spoe-group",
-            "set-fc-mark",
-            "set-fc-tos",
             "set-header",
             "set-log-level",
             "set-map",
@@ -61699,6 +64152,13 @@ func init() {
               "frontend",
               "backend"
             ]
+          },
+          "x-nullable": true
+        },
+        "last_agt": {
+          "type": "string",
+          "x-dependency": {
+            "type": "server"
           },
           "x-nullable": true
         },
@@ -64451,12 +66911,6 @@ func init() {
       "type": "object",
       "title": "SSL File",
       "properties": {
-        "algorithm": {
-          "type": "string"
-        },
-        "authority_key_id": {
-          "type": "string"
-        },
         "description": {
           "type": "string"
         },
@@ -64492,15 +66946,6 @@ func init() {
           "x-nullable": true,
           "readOnly": true
         },
-        "serial": {
-          "type": "string"
-        },
-        "sha1_finger_print": {
-          "type": "string"
-        },
-        "sha256_finger_print": {
-          "type": "string"
-        },
         "size": {
           "description": "File size in bytes.",
           "type": "integer",
@@ -64508,15 +66953,6 @@ func init() {
           "readOnly": true
         },
         "storage_name": {
-          "type": "string"
-        },
-        "subject": {
-          "type": "string"
-        },
-        "subject_alternative_names": {
-          "type": "string"
-        },
-        "subject_key_id": {
           "type": "string"
         }
       }
@@ -65345,12 +67781,8 @@ func init() {
             "sc-set-gpt0",
             "send-spoe-group",
             "set-bandwidth-limit",
-            "set-bc-mark",
-            "set-bc-tos",
             "set-dst-port",
             "set-dst",
-            "set-fc-mark",
-            "set-fc-tos",
             "set-log-level",
             "set-mark",
             "set-nice",
@@ -65499,12 +67931,8 @@ func init() {
               "required": true,
               "value": [
                 "do-resolve",
-                "set-bc-mark",
-                "set-bc-tos",
                 "set-dst",
                 "set-dst-port",
-                "set-fc-mark",
-                "set-fc-tos",
                 "set-priority-class",
                 "set-priority-offset",
                 "set-src",
@@ -65683,6 +68111,18 @@ func init() {
             }
           },
           "x-display-name": "Variable name"
+        },
+        "rst_ttl": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": [
+                "silent-drop"
+              ]
+            }
+          },
+          "x-display-name": "RST TTL"
         },
         "sc_idx": {
           "type": "string",
@@ -65927,6 +68367,7 @@ func init() {
             },
             "type": {
               "value": [
+                "session",
                 "connection",
                 "content"
               ]
@@ -66019,8 +68460,6 @@ func init() {
             "sc-set-gpt0",
             "send-spoe-group",
             "set-bandwidth-limit",
-            "set-fc-mark",
-            "set-fc-tos",
             "set-log-level",
             "set-mark",
             "set-nice",
@@ -66111,9 +68550,7 @@ func init() {
               "required": true,
               "value": [
                 "set-src-port",
-                "sc-set-gpt0",
-                "set-fc-mark",
-                "set-fc-tos"
+                "sc-set-gpt0"
               ]
             },
             "type": {
@@ -66204,6 +68641,18 @@ func init() {
           },
           "x-display-name": "Nice Value",
           "x-nullable": false
+        },
+        "rst_ttl": {
+          "type": "integer",
+          "x-dependency": {
+            "type": {
+              "required": true,
+              "value": [
+                "silent-drop"
+              ]
+            }
+          },
+          "x-display-name": "RST TTL"
         },
         "sc_expr": {
           "type": "string",

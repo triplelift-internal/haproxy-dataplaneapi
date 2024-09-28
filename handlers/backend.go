@@ -20,10 +20,11 @@ import (
 	"slices"
 
 	"github.com/go-openapi/runtime/middleware"
-	client_native "github.com/haproxytech/client-native/v6"
-	"github.com/haproxytech/client-native/v6/models"
+	client_native "github.com/haproxytech/client-native/v5"
+	"github.com/haproxytech/client-native/v5/models"
 
 	"github.com/haproxytech/dataplaneapi/haproxy"
+	"github.com/haproxytech/dataplaneapi/log"
 	"github.com/haproxytech/dataplaneapi/misc"
 	"github.com/haproxytech/dataplaneapi/operations/backend"
 )
@@ -54,6 +55,24 @@ type GetBackendsHandlerImpl struct {
 type ReplaceBackendHandlerImpl struct {
 	Client      client_native.HAProxyClient
 	ReloadAgent haproxy.IReloadAgent
+}
+
+func logDeprecatedFieldsWarning(b *models.Backend) {
+	if b.Httpclose != "" {
+		log.Warningf("Field Httpclose is deprecated. Use HTTPConnectionMode.")
+	}
+	if b.HTTPKeepAlive != "" {
+		log.Warningf("Field HTTPKeepAlive is deprecated. Use HTTPConnectionMode.")
+	}
+	if b.HTTPServerClose != "" {
+		log.Warningf("Field HTTPServerClose is deprecated. Use HTTPConnectionMode.")
+	}
+	if b.ForcePersist != nil {
+		log.Warningf("Field force_persist is deprecated. Use force_persist_list.")
+	}
+	if b.IgnorePersist != nil {
+		log.Warningf("Field ignore_persist is deprecated. Use ignore_persist_list.")
+	}
 }
 
 // handleDeprecatedBackendFields adds backward compatibility support for the fields
@@ -178,6 +197,8 @@ func (h *CreateBackendHandlerImpl) Handle(params backend.CreateBackendParams, pr
 		return backend.NewCreateBackendDefault(int(*e.Code)).WithPayload(e)
 	}
 
+	logDeprecatedFieldsWarning(params.Data)
+
 	configuration, err := h.Client.Configuration()
 	if err != nil {
 		e := misc.HandleError(err)
@@ -269,7 +290,7 @@ func (h *GetBackendHandlerImpl) Handle(params backend.GetBackendParams, principa
 		return backend.NewGetBackendDefault(int(*e.Code)).WithPayload(e)
 	}
 
-	_, bck, err := configuration.GetBackend(params.Name, t)
+	v, bck, err := configuration.GetBackend(params.Name, t)
 	if err != nil {
 		e := misc.HandleError(err)
 		return backend.NewGetBackendDefault(int(*e.Code)).WithPayload(e)
@@ -278,7 +299,7 @@ func (h *GetBackendHandlerImpl) Handle(params backend.GetBackendParams, principa
 	// Populate deprecated force_persist and ignore_persist fields in returned response.
 	handleDeprecatedBackendFields(http.MethodGet, bck, nil)
 
-	return backend.NewGetBackendOK().WithPayload(bck)
+	return backend.NewGetBackendOK().WithPayload(&backend.GetBackendOKBody{Version: v, Data: bck})
 }
 
 // Handle executing the request and returning a response
@@ -294,7 +315,7 @@ func (h *GetBackendsHandlerImpl) Handle(params backend.GetBackendsParams, princi
 		return backend.NewGetBackendsDefault(int(*e.Code)).WithPayload(e)
 	}
 
-	_, bcks, err := configuration.GetBackends(t)
+	v, bcks, err := configuration.GetBackends(t)
 	if err != nil {
 		e := misc.HandleError(err)
 		return backend.NewGetBackendsDefault(int(*e.Code)).WithPayload(e)
@@ -305,7 +326,7 @@ func (h *GetBackendsHandlerImpl) Handle(params backend.GetBackendsParams, princi
 		handleDeprecatedBackendFields(http.MethodGet, bck, nil)
 	}
 
-	return backend.NewGetBackendsOK().WithPayload(bcks)
+	return backend.NewGetBackendsOK().WithPayload(&backend.GetBackendsOKBody{Version: v, Data: bcks})
 }
 
 // Handle executing the request and returning a response
@@ -318,6 +339,8 @@ func (h *ReplaceBackendHandlerImpl) Handle(params backend.ReplaceBackendParams, 
 	if params.Version != nil {
 		v = *params.Version
 	}
+
+	logDeprecatedFieldsWarning(params.Data)
 
 	if t != "" && *params.ForceReload {
 		msg := "Both force_reload and transaction specified, specify only one"

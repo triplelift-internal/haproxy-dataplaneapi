@@ -19,8 +19,8 @@ import (
 	"context"
 	"errors"
 
-	client_native "github.com/haproxytech/client-native/v6"
-	"github.com/haproxytech/client-native/v6/runtime"
+	client_native "github.com/haproxytech/client-native/v5"
+	"github.com/haproxytech/client-native/v5/runtime"
 	cn "github.com/haproxytech/dataplaneapi/client-native"
 	dataplaneapi_config "github.com/haproxytech/dataplaneapi/configuration"
 )
