@@ -16,6 +16,8 @@
 package configuration
 
 import (
+	"time"
+
 	"github.com/haproxytech/client-native/v5/models"
 	"github.com/jessevdk/go-flags"
 
@@ -47,6 +49,7 @@ type configTypeDataplaneapi struct {
 	Transaction      *configTypeTransaction `yaml:"transaction,omitempty"`
 	Resources        *configTypeResources   `yaml:"resources,omitempty"`
 	User             []configTypeUser       `yaml:"user,omitempty"`
+	AWSAvailabilityZone *string             `yaml:"aws_availability_zone,omitempty"`
 }
 
 type configTypeTLS struct {
@@ -74,6 +77,8 @@ type configTypeHaproxy struct {
 	NodeIDFile       *string           `yaml:"fid,omitempty"`
 	MasterWorkerMode *bool             `yaml:"master_worker_mode,omitempty"`
 	Reload           *configTypeReload `yaml:"reload,omitempty"`
+	DelayedStartMax  *string           `yaml:"delayed_start_max,omitempty"`
+	DelayedStartTick *string           `yaml:"delayed_start_tick,omitempty"`
 }
 
 type configTypeUserlist struct {
@@ -195,6 +200,9 @@ func copyToConfiguration(cfg *Configuration) { //nolint:cyclop,maintidx
 	}
 	if cfgStorage.Dataplaneapi != nil && cfgStorage.Dataplaneapi.DebugSocketPath != nil && !misc.HasOSArg("", "debug-socket-path", "") {
 		cfg.HAProxy.DebugSocketPath = *cfgStorage.Dataplaneapi.DebugSocketPath
+	}
+	if cfgStorage.Dataplaneapi != nil && cfgStorage.Dataplaneapi.AWSAvailabilityZone != nil && !misc.HasOSArg("a", "aws-availability-zone", "") {
+		cfg.HAProxy.AWSAvailabilityZone = *cfgStorage.Dataplaneapi.AWSAvailabilityZone
 	}
 	if cfgStorage.Dataplaneapi != nil && cfgStorage.Dataplaneapi.UID != nil && !misc.HasOSArg("", "uid", "") {
 		cfg.HAProxy.UID = *cfgStorage.Dataplaneapi.UID
@@ -390,6 +398,16 @@ func copyToConfiguration(cfg *Configuration) { //nolint:cyclop,maintidx
 	}
 	if cfgStorage.LogTargets != nil {
 		cfg.LogTargets = *cfgStorage.LogTargets
+	}
+	if cfgStorage.Dataplaneapi != nil && cfgStorage.Haproxy.DelayedStartMax != nil && !misc.HasOSArg("", "delayed-start-max", "") {
+		if d, err := time.ParseDuration(*cfgStorage.Haproxy.DelayedStartMax); err == nil {
+			cfg.HAProxy.DelayedStartMax = d
+		}
+	}
+	if cfgStorage.Dataplaneapi != nil && cfgStorage.Haproxy.DelayedStartTick != nil && !misc.HasOSArg("", "delayed-start-tick", "") {
+		if d, err := time.ParseDuration(*cfgStorage.Haproxy.DelayedStartTick); err == nil {
+			cfg.HAProxy.DelayedStartTick = d
+		}
 	}
 }
 
