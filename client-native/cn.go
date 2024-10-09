@@ -3,6 +3,7 @@ package cn
 import (
 	"context"
 	"fmt"
+	parser2 "github.com/haproxytech/client-native/v5/config-parser"
 	"strconv"
 	"sync"
 	"time"
@@ -44,7 +45,7 @@ func ConfigureConfigurationClient(haproxyOptions dataplaneapi_config.HAProxyConf
 	}
 
 	p := confClient.Parser()
-	comments, err := p.Get(parser.Comments, parser.CommentsSectionName, "#")
+	comments, err := p.Get(parser2.Section(parser.Comments), parser.CommentsSectionName, "#")
 	insertDisclaimer := false
 	if err != nil {
 		insertDisclaimer = true
@@ -57,12 +58,12 @@ func ConfigureConfigurationClient(haproxyOptions dataplaneapi_config.HAProxyConf
 	}
 	if insertDisclaimer {
 		commentsNew := types.Comments{Value: "Dataplaneapi managed File"}
-		err = p.Insert(parser.Comments, parser.CommentsSectionName, "#", commentsNew, 0)
+		err = p.Insert(parser2.Section(parser.Comments), parser.CommentsSectionName, "#", commentsNew, 0)
 		if err != nil {
 			return nil, fmt.Errorf("error setting up configuration client: %s", err.Error())
 		}
 		commentsNew = types.Comments{Value: "changing file directly can cause a conflict if dataplaneapi is running"}
-		err = p.Insert(parser.Comments, parser.CommentsSectionName, "#", commentsNew, 1)
+		err = p.Insert(parser2.Section(parser.Comments), parser.CommentsSectionName, "#", commentsNew, 1)
 		if err != nil {
 			return nil, fmt.Errorf("error setting up configuration client: %s", err.Error())
 		}
