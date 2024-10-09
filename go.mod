@@ -84,9 +84,9 @@ require (
 	github.com/tklauser/go-sysconf v0.3.14 // indirect
 	github.com/tklauser/numcpus v0.8.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
-	go.mongodb.org/mongo-driver v1.16.1 // indirect
+	go.mongodb.org/mongo-driver v1.17.1 // indirect
 	golang.org/x/sync v0.8.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/haproxytech/client-native/v5 => github.com/triplelift-internal/haproxy-client-native/v5 v5.1.13-triplelift-1-dev
+replace github.com/haproxytech/client-native/v5 => github.com/triplelift-internal/haproxy-client-native/v5 v5.1.13-triplelift-2-dev
