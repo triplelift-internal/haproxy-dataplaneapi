@@ -10,12 +10,12 @@ import (
 	clientnative "github.com/haproxytech/client-native/v5"
 	"github.com/haproxytech/client-native/v5/models"
 
+	parser "github.com/haproxytech/client-native/v5/config-parser"
+	"github.com/haproxytech/client-native/v5/config-parser/types"
 	"github.com/haproxytech/client-native/v5/configuration"
 	configuration_options "github.com/haproxytech/client-native/v5/configuration/options"
 	runtime_api "github.com/haproxytech/client-native/v5/runtime"
 	runtime_options "github.com/haproxytech/client-native/v5/runtime/options"
-	parser "github.com/haproxytech/config-parser/v5"
-	"github.com/haproxytech/config-parser/v5/types"
 
 	dataplaneapi_config "github.com/haproxytech/dataplaneapi/configuration"
 	"github.com/haproxytech/dataplaneapi/log"
@@ -76,6 +76,7 @@ func ConfigureRuntimeClient(ctx context.Context, confClient configuration.Config
 	var runtimeClient runtime_api.Runtime
 
 	_, globalConf, err := confClient.GetGlobalConfiguration("")
+	waitForRuntimeOption := runtime_options.AllowDelayedStart(haproxyOptions.DelayedStartMax, haproxyOptions.DelayedStartTick)
 
 	// First try to setup master runtime socket
 	if err == nil {
@@ -87,7 +88,7 @@ func ConfigureRuntimeClient(ctx context.Context, confClient configuration.Config
 			if globalConf.Nbproc > 0 {
 				nbproc := int(globalConf.Nbproc)
 				ms := runtime_options.MasterSocket(masterSocket, nbproc)
-				runtimeClient, err = runtime_api.New(ctx, mapsDir, ms)
+				runtimeClient, err = runtime_api.New(ctx, mapsDir, ms, waitForRuntimeOption)
 				if err == nil {
 					return runtimeClient
 				}
@@ -95,7 +96,7 @@ func ConfigureRuntimeClient(ctx context.Context, confClient configuration.Config
 			} else {
 				// if nbproc is not set, use master socket with 1 process
 				ms := runtime_options.MasterSocket(masterSocket, 1)
-				runtimeClient, err = runtime_api.New(ctx, mapsDir, ms)
+				runtimeClient, err = runtime_api.New(ctx, mapsDir, ms, waitForRuntimeOption)
 				if err == nil {
 					return runtimeClient
 				}
@@ -110,7 +111,7 @@ func ConfigureRuntimeClient(ctx context.Context, confClient configuration.Config
 				if misc.IsUnixSocketAddr(*r.Address) {
 					sockets[1] = *r.Address
 					socketsL := runtime_options.Sockets(sockets)
-					runtimeClient, err = runtime_api.New(ctx, mapsDir, socketsL)
+					runtimeClient, err = runtime_api.New(ctx, mapsDir, socketsL, waitForRuntimeOption)
 					if err == nil {
 						muSocketsList.Lock()
 						socketsList = sockets
@@ -143,7 +144,7 @@ func ConfigureRuntimeClient(ctx context.Context, confClient configuration.Config
 			}
 
 			socketLst := runtime_options.Sockets(sockets)
-			runtimeClient, err = runtime_api.New(ctx, mapsDir, socketLst)
+			runtimeClient, err = runtime_api.New(ctx, mapsDir, socketLst, waitForRuntimeOption)
 			if err == nil {
 				return runtimeClient
 			}
