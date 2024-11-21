@@ -88,4 +88,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/haproxytech/client-native/v5 => github.com/triplelift-internal/haproxy-client-native/v5 v5.1.13-triplelift-2-dev
+replace github.com/haproxytech/client-native/v5 => github.com/triplelift-internal/haproxy-client-native/v5 v5.1.14-triplelift-1-dev
